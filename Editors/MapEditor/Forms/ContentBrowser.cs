@@ -27,25 +27,25 @@ namespace MapEditor.Forms
 
             Resized = () =>
             {
-                body.ViewX = GX;
-                body.ViewY = GY;
-                body.ViewW = W;
-                body.ViewH = H;
-                title.ViewX = GX;
-                title.ViewY = GY;
-                title.ViewW = W;
-                title.ViewH = H;
+                Body.ViewX = GX;
+                Body.ViewY = GY;
+                Body.ViewW = W;
+                Body.ViewH = H;
+                Title.ViewX = GX;
+                Title.ViewY = GY;
+                Title.ViewW = W;
+                Title.ViewH = H;
             };
 
             Area = new ContentArea();
             Area.Root = this;
             AfterSet = () =>
             {
-                Area.Set(0, 0, body.W, body.H);
+                Area.Set(0, 0, Body.W, Body.H);
 
             };
 
-            body.Add(Area);
+            Body.Add(Area);
             Set(20, 400, 500, 250, "Content");
         }
 

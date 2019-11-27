@@ -10,6 +10,9 @@ namespace VividManager
     {
         static void Main(string[] args)
         {
+
+            VividManagerApp.InitApp();
+
         }
     }
 }

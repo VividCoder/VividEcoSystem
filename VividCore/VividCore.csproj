@@ -9,7 +9,7 @@
     <ProjectGuid>{A5433773-A59C-465E-B8E1-A780F00A3F40}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VividCore</RootNamespace>
+    <RootNamespace>Vivid</RootNamespace>
     <AssemblyName>VividCore</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -201,6 +201,7 @@
     <Compile Include="Resonance\Forms\DropDownListForm.cs" />
     <Compile Include="Resonance\Forms\EventForm.cs" />
     <Compile Include="Resonance\Forms\Graph3DForm.cs" />
+    <Compile Include="Resonance\Forms\GroupForm.cs" />
     <Compile Include="Resonance\Forms\HorizontalSplitForm.cs" />
     <Compile Include="Resonance\Forms\ImageForm.cs" />
     <Compile Include="Resonance\Forms\ItemForm.cs" />

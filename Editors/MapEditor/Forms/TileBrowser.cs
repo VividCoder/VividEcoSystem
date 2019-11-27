@@ -173,7 +173,7 @@ namespace MapEditor.Forms
         {
 
             var setPage = new TileSetTabPage("New set");
-            setPage.Set(0, 0, body.W, body.H);
+            setPage.Set(0, 0, Body.W, Body.H);
             Tab.AddPage(setPage);
             
 
@@ -189,7 +189,7 @@ namespace MapEditor.Forms
 
        
 
-            body.Add(Tab);
+            Body.Add(Tab);
             //body.Add(Map);
             
             AfterSet = () =>
@@ -197,7 +197,7 @@ namespace MapEditor.Forms
                 Tab.X = 0;
                 Tab.Y = -15;
                 Tab.W = W;
-                Tab.H = body.H;
+                Tab.H = Body.H;
                // Map.Set(0, 0, body.W, body.H);
             };
 

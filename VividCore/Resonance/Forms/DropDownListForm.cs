@@ -18,7 +18,7 @@ namespace Vivid.Resonance.Forms
             {
 
                 DrawFormSolid(new OpenTK.Vector4(1, 1, 1, 1));
-                DrawText(CurrentItem, 5, 3);
+                DrawText(CurrentItem, 5, -3);
 
 
             };

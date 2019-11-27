@@ -12,7 +12,7 @@ namespace Vivid.Resonance.Forms
         public bool LockedPos = false;
         public bool LockedSize = false;
         public static Texture2D Shadow = null;
-        public UIForm body, title;
+        public UIForm Body, Title;
 
         public WindowForm()
         {
@@ -20,15 +20,15 @@ namespace Vivid.Resonance.Forms
             {
                 Shadow = new Texture2D("data/UI/Shadow1.png", LoadMethod.Single, true);
                 TitleImg = new Texture2D("data/nxUI/window/title2.png", LoadMethod.Single, true);
-                BodyImg = new Texture2D("data/nxUI/bg/winBody4.png", LoadMethod.Single, true);
+                BodyImg = new Texture2D("data/nxUI/bg/winBody5.png", LoadMethod.Single, true);
                 BodyNorm = new Texture2D("data/UI/normal/winnorm5.jpg", LoadMethod.Single, false);
             }
 
-            title = new ButtonForm().Set(0, 0, W, 20, Text).SetImage(TitleImg);
+            Title = new ButtonForm().Set(0, 0, W, 20, Text).SetImage(TitleImg);
 
-            body = new ImageForm().Set(0, 20, W - 100, H - 22, "").SetImage(BodyImg, BodyNorm).SetPeak(true, false);
-            body.Peak = false;
-            body.Refract = false;
+            Body = new ImageForm().Set(0, 20, W - 100, H - 22, "").SetImage(BodyImg, BodyNorm).SetPeak(true, false);
+            Body.Peak = false;
+            Body.Refract = false;
 
             //body.Blur = 0.1f;
             // body.RefractV = 0.72f;
@@ -39,7 +39,7 @@ namespace Vivid.Resonance.Forms
 
 
                 
-                title.Text = Text;
+                Title.Text = Text;
 
 
             };
@@ -53,7 +53,7 @@ namespace Vivid.Resonance.Forms
                 }
 
                 Set(X, Y, W + x, H + y, Text);
-                body.Set(0, 22, W, H - 24, "");
+                Body.Set(0, 22, W, H - 24, "");
                 resize.X = W - 14;
                 resize.Y = H - 14;
             }
@@ -71,19 +71,19 @@ namespace Vivid.Resonance.Forms
                 Y = Y + y;
             }
 
-            title.Drag = DragFunc;
+            Title.Drag = DragFunc;
 
-            Add(title);
-            Add(body);
+            Add(Title);
+            Add(Body);
             //  Add(resize);
 
             void ChangedFunc()
             {
                // title.Text = Text;
-                title.W = W;
-                title.H = 20;
-                body.H = H - 26;
-                body.W = W;
+                Title.W = W;
+                Title.H = 20;
+                Body.H = H - 26;
+                Body.W = W;
                 resize.X = W - 14;
                 resize.Y = H - 20;
                 SubChanged?.Invoke();

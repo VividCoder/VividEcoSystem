@@ -13,7 +13,8 @@ namespace Vivid.Resonance.Forms
         {
             void DrawFunc()
             {
-                DrawFormBlur(UI.WhiteTex, 0.2f, new OpenTK.Vector4(0.7f, 0.7f, 0.7f, 1));
+                //DrawForm(UI.WhiteTex, 0.2f, new OpenTK.Vector4(0.7f, 0.7f, 0.7f, 1));
+
 
                 float draw_y = Begin;
 

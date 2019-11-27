@@ -149,7 +149,11 @@ namespace Vivid.Resonance
                 AddToList(list, form);
             }
             //AddToList(list, Dock);
-            AddToList(list, Dock);
+            if (Dock.Icons.Count > 0)
+            {
+                AddToList(list, Dock);
+            }
+
             AddToList(list, Top);
             if (Menu != null)
             {
@@ -177,7 +181,10 @@ namespace Vivid.Resonance
             {
                 AddToList(list, form);
             }
-            AddToList(list, Dock);
+            if (Dock.Icons.Count > 0)
+            {
+                AddToList(list, Dock);
+            }
             AddToList(list, Top);
             if (Menu != null)
             {
@@ -455,7 +462,10 @@ namespace Vivid.Resonance
             }
 
             RenderList.Clear();
-            UpdateRenderList(Dock);
+            if (Dock.Icons.Count > 0)
+            {
+                UpdateRenderList(Dock);
+            }
             Vivid.Draw.IntelliDraw.BeginDraw();
             foreach (var f in RenderList)
             {
@@ -571,7 +581,10 @@ namespace Vivid.Resonance
                 ev.Update?.Invoke();
             }
 
-            UpdateUpdateList(Dock);
+            if (Dock.Icons.Count > 0)
+            {
+                UpdateUpdateList(Dock);
+            }
 
             if (ActiveMenu != null)
             {

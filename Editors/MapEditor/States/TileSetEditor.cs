@@ -65,9 +65,9 @@ namespace MapViewer.States
 
            
 
-            set_Editor.body.Add(tools);
+            set_Editor.Body.Add(tools);
 
-            MapViewForm tileSet_View = new MapViewForm(CurSetMap).Set(0, 25, set_Editor.body.W, set_Editor.body.H - 25) as MapViewForm;
+            MapViewForm tileSet_View = new MapViewForm(CurSetMap).Set(0, 25, set_Editor.Body.W, set_Editor.Body.H - 25) as MapViewForm;
             tView = tileSet_View;
             //CurSetMap = new Map(1);
             tView.MouseLeave = () =>
@@ -121,7 +121,7 @@ namespace MapViewer.States
 
 
 
-            set_Editor.body.Add(tileSet_View);
+            set_Editor.Body.Add(tileSet_View);
 
             void click_AddFolder()
             {
@@ -257,15 +257,15 @@ namespace MapViewer.States
 
             var win_NewSet = new WindowForm().Set(50, 100, 500, 300, "New Tileset") as WindowForm;
             var newSet_Name = new TextBoxForm().Set(85, 5, 120, 25, "") as TextBoxForm;
-            win_NewSet.body.Add(newSet_Name);
+            win_NewSet.Body.Add(newSet_Name);
             var newSet_Label = new LabelForm().Set(5, 5, 35, 25, "SetName");
 
             var newSet_Create = new ButtonForm().Set(5, 245, 60, 25, "Create");
 
-            win_NewSet.body.Add(newSet_Create);
+            win_NewSet.Body.Add(newSet_Create);
 
 
-            win_NewSet.body.Add(newSet_Label);
+            win_NewSet.Body.Add(newSet_Label);
 
 
             void click_NewSet(int b)

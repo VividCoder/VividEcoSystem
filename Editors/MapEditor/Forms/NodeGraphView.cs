@@ -57,13 +57,13 @@ namespace MapEditor.Forms
 
 
             tree = new Vivid.Resonance.Forms.TreeViewForm();
-            body.Add(tree);
+            Body.Add(tree);
             AfterSet = () =>
             {
 
-                tree.W = body.W;
-                tree.H = body.H;
-                title.Text = "Node View";
+                tree.W = Body.W;
+                tree.H = Body.H;
+                Title.Text = "Node View";
 
             };
 

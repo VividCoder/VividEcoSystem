@@ -50,9 +50,9 @@ namespace MapEditor.Forms
             var layDown = new ButtonForm().Set(140, -20, 30, 20, "\\/");
             var layUp = new ButtonForm().Set(240, -20,30, 20, "/\\");
             var lay = new TextBoxForm().Set(175, -20, 70, 20, "0");
-                body.Add(layDown);
-            body.Add(layUp);
-            body.Add(lay);
+                Body.Add(layDown);
+            Body.Add(layUp);
+            Body.Add(lay);
 
             layDown.Click = (b) =>
               {
@@ -140,7 +140,7 @@ namespace MapEditor.Forms
 
             updateModeLabel();
 
-            body.Add(View);
+            Body.Add(View);
 
             MoveNodeForm moveForm = new MoveNodeForm().Set(0, 0, 0, 0) as MoveNodeForm;
             moveForm.View = TView;
@@ -293,8 +293,8 @@ namespace MapEditor.Forms
             {
 
                 Tab.W = W;
-                Tab.H = body.H;
-                View.Set(0, 0, body.W, body.H);
+                Tab.H = Body.H;
+                View.Set(0, 0, Body.W, Body.H);
                 View.UpdateGraph();
 
             };

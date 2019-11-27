@@ -28,16 +28,16 @@ namespace MapEditor.Forms
                     W = Root.W;
                     H = Root.H;
                     Console.WriteLine("Resized inspector. W:" + W + " H:" + H);
-                    body.ViewX = GX;
-                    body.ViewY = GY;
-                    body.ViewW = W;
-                    body.ViewH = H;
-                    title.ViewX = GX;
-                    title.ViewY = GY;
-                    title.ViewW = W;
-                    title.ViewH = H;
+                    Body.ViewX = GX;
+                    Body.ViewY = GY;
+                    Body.ViewW = W;
+                    Body.ViewH = H;
+                    Title.ViewX = GX;
+                    Title.ViewY = GY;
+                    Title.ViewW = W;
+                    Title.ViewH = H;
 
-                    foreach (var f in body.Forms)
+                    foreach (var f in Body.Forms)
                     {
                         f.ViewX = GX + 2;
                         f.ViewY = GY + 25;
@@ -73,11 +73,11 @@ namespace MapEditor.Forms
         {
             Obj = obj;
             BuildUI(obj);
-            body.ViewX = GX;
-            body.ViewY = GY;
-            body.ViewW = W;
-            body.ViewH = H;
-            foreach (var f in body.Forms)
+            Body.ViewX = GX;
+            Body.ViewY = GY;
+            Body.ViewW = W;
+            Body.ViewH = H;
+            foreach (var f in Body.Forms)
             {
                 f.ViewX = GX + 2;
                 f.ViewY = GY + 25;
@@ -99,11 +99,11 @@ namespace MapEditor.Forms
                 Blank = new Texture2D("data/ui/blank.jpg", LoadMethod.Single, false);
                 CamPic = new Texture2D("data/ui/campic1.jpg", LoadMethod.Single, true);
             }
-            body.Forms.Clear();
+            Body.Forms.Clear();
 
             if (scroller == null)
             {
-                scroller = new ScrollBarV().Set(body.W - 10, 1, 10, body.H) as ScrollBarV;
+                scroller = new ScrollBarV().Set(Body.W - 10, 1, 10, Body.H) as ScrollBarV;
                 scroller.ViewX = GX;
                 scroller.ViewY = GY + 25;
                 scroller.ViewW = W;
@@ -116,7 +116,7 @@ namespace MapEditor.Forms
 
             scroller.ValueChange = (v) =>
             {
-                foreach (var f in body.Forms)
+                foreach (var f in Body.Forms)
                 {
                     if (f == scroller) continue;
                     f.OffY = (int)-scroller.Cur;
@@ -124,13 +124,13 @@ namespace MapEditor.Forms
                 }
             };
 
-            body.Add(scroller);
+            Body.Add(scroller);
 
 
 
             var lab = new LabelForm().Set(5, 10, 120, 25, "Class:" + obj.Name + " Type:" + obj.GetType().Name);
 
-            body.Add(lab);
+            Body.Add(lab);
 
             object t = obj as object;
 
@@ -147,7 +147,7 @@ namespace MapEditor.Forms
 
                 };
 
-                body.Add(applyBut);
+                Body.Add(applyBut);
 
                 py += 35;
 
@@ -218,7 +218,7 @@ namespace MapEditor.Forms
 
                         };
 
-                        body.Add(list_f);
+                        Body.Add(list_f);
 
                         py += 35;
 
@@ -237,9 +237,9 @@ namespace MapEditor.Forms
                                 var l_remove = new ButtonForm().Set(260, py, 80, 25, "Remove") as ButtonForm;
 
 
-                                body.Add(l_itemname);
-                                body.Add(l_remove);
-                                body.Add(l_edit);
+                                Body.Add(l_itemname);
+                                Body.Add(l_remove);
+                                Body.Add(l_edit);
 
                                 l_edit.Click = (b) =>
                                 {
@@ -277,7 +277,7 @@ namespace MapEditor.Forms
                                 SetObj(Obj);
                             };
                         };
-                        body.Add(l_dragzone);
+                        Body.Add(l_dragzone);
 
                         py += 35;
 
@@ -297,8 +297,8 @@ namespace MapEditor.Forms
                             var scr_edit = new ButtonForm().Set(190, py, 80, 25, "Edit") as ButtonForm;
                             py += 35;
 
-                            body.Add(scr_name);
-                            body.Add(scr_edit);
+                            Body.Add(scr_name);
+                            Body.Add(scr_edit);
 
                             scr_edit.Click = (b) =>
                             {
@@ -322,7 +322,7 @@ namespace MapEditor.Forms
 
                         var tc_name = new TextBoxForm().Set(5, py, 120, 25, "EnvMap");
 
-                        body.Add(tc_name);
+                        Body.Add(tc_name);
 
                         py += 30;
 
@@ -340,7 +340,7 @@ namespace MapEditor.Forms
 
                         var texc_p = new ImageForm().Set(5, py, 128, 128, "").SetImage(pi) as ImageForm;
 
-                        body.Add(texc_p);
+                        Body.Add(texc_p);
 
                         texc_p.CanDrop = true;
                         py += 136;
@@ -381,7 +381,7 @@ namespace MapEditor.Forms
 
                         var t_name = new TextBoxForm().Set(5, py, 120, 25, tex.Name);
 
-                        body.Add(t_name);
+                        Body.Add(t_name);
 
                         py += 30;
 
@@ -389,7 +389,7 @@ namespace MapEditor.Forms
 
                         var set_image = new ButtonForm().Set(140, py, 80, 25, "Set Image") as ButtonForm;
 
-                        body.Add(set_image);
+                        Body.Add(set_image);
 
                         set_image.Click = (b) =>
                         {
@@ -436,7 +436,7 @@ namespace MapEditor.Forms
 
                         m_prev.CanDrop = true;
 
-                        body.Add(m_prev);
+                        Body.Add(m_prev);
 
                         use = true;
 
@@ -454,7 +454,7 @@ namespace MapEditor.Forms
 
                         var t_name2 = new TextBoxForm().Set(5, py, 120, 25, tex2.Name);
 
-                        body.Add(t_name2);
+                        Body.Add(t_name2);
 
                         py += 30;
 
@@ -487,7 +487,7 @@ namespace MapEditor.Forms
 
                         m_prev2.CanDrop = true;
 
-                        body.Add(m_prev2);
+                        Body.Add(m_prev2);
 
                         use = true;
 
@@ -503,7 +503,7 @@ namespace MapEditor.Forms
                         foreach (var ns in sl.Scripts)
                         {
                             var scr_name_lab = new TextBoxForm().Set(5, py, 240, 25, "Script" + num + ":" + ns.Name);
-                            body.Add(scr_name_lab);
+                            Body.Add(scr_name_lab);
                             num++;
                             py += 30;
                         }
@@ -523,8 +523,8 @@ namespace MapEditor.Forms
                             SetObj(mat);
                         };
 
-                        body.Add(m_name);
-                        body.Add(m_edit);
+                        Body.Add(m_name);
+                        Body.Add(m_edit);
                         py += 30;
                         use = true;
 
@@ -544,7 +544,7 @@ namespace MapEditor.Forms
                         {
 
                             var path_sel = new ButtonForm().Set(230, py, 60, 25, "Select");
-                            body.Add(path_sel);
+                            Body.Add(path_sel);
 
 
                             path_sel.Click = (b) =>
@@ -565,7 +565,7 @@ namespace MapEditor.Forms
 
                         }
 
-                        body.Add(str_box);
+                        Body.Add(str_box);
                         use = true;
                         py += 30;
 
@@ -609,7 +609,7 @@ namespace MapEditor.Forms
                             }
                         };
 
-                        body.Add(i_lab, i_box);
+                        Body.Add(i_lab, i_box);
 
                         py += 30;
 
@@ -648,7 +648,7 @@ namespace MapEditor.Forms
                             }
                         };
 
-                        body.Add(v_lab, v_box);
+                        Body.Add(v_lab, v_box);
 
                         py += 30;
 
@@ -711,8 +711,8 @@ namespace MapEditor.Forms
                             Obj.Changed();
                         };
 
-                        body.Add(x_lab, y_lab, z_lab);
-                        body.Add(x_box, y_box, z_box);
+                        Body.Add(x_lab, y_lab, z_lab);
+                        Body.Add(x_box, y_box, z_box);
 
                         py += 30;
 
@@ -722,7 +722,7 @@ namespace MapEditor.Forms
                 {
                     var prop_type = new LabelForm().Set(5, py, 80, 25, name.Name);
 
-                    body.Add(prop_lab);
+                    Body.Add(prop_lab);
                     //  body.Add(prop_type);
 
                     //py += 30;
