@@ -33,13 +33,13 @@ namespace Vivid.Resonance.Forms
             }
 
             LockedSize = true;
-            DirBox = new TextBoxForm().Set(55, 35, 300, 20) as TextBoxForm;
-            FileBox = new TextBoxForm().Set(10, 415, 300, 20) as TextBoxForm;
+            DirBox = new TextBoxForm().Set(55, 35, 320, 20) as TextBoxForm;
+            FileBox = new TextBoxForm().Set(10, 415, 365, 20) as TextBoxForm;
             Add(DirBox);
             Add(FileBox);
 
-            UIForm cancel = new ButtonForm().Set(10, 450, 120, 20, "Cancel");
-            UIForm ok = new ButtonForm().Set(180, 450, 120, 20, "Select");
+            UIForm cancel = new ButtonForm().Set(134, 440, 120, 20, "Cancel");
+            UIForm ok = new ButtonForm().Set(254, 440, 120, 20, "Select");
 
             cancel.Click = (b) =>
             {
@@ -76,12 +76,12 @@ namespace Vivid.Resonance.Forms
                 title = "Select file";
             }
 
-            Set(AppInfo.W / 2 - 200, AppInfo.H / 2 - 250, 400, 500, title);
+            Set(AppInfo.W / 2 - 200, AppInfo.H / 2 - 250, 385, 480, title);
 
             Files = new ListForm().Set(10, 60, 370, 350, "") as ListForm;
             Add(Files);
             Scan(defdir);
-            BackFolder = new ButtonForm().Set(2, 30, 54, 22, "").SetImage(BackPic) as ButtonForm;
+            BackFolder = new ButtonForm().Set(5, 33, 47, 24, "Back") as ButtonForm;
 
             void BackFunc(int b)
             {

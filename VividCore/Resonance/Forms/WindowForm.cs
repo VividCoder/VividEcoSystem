@@ -19,7 +19,7 @@ namespace Vivid.Resonance.Forms
             if (Shadow == null)
             {
                 Shadow = new Texture2D("data/UI/Shadow1.png", LoadMethod.Single, true);
-                TitleImg = new Texture2D("data/nxUI/window/title2.png", LoadMethod.Single, true);
+                TitleImg = new Texture2D("data/nxUI/window/title3.png", LoadMethod.Single, true);
                 BodyImg = new Texture2D("data/nxUI/bg/winBody5.png", LoadMethod.Single, true);
                 BodyNorm = new Texture2D("data/UI/normal/winnorm5.jpg", LoadMethod.Single, false);
             }

@@ -9,7 +9,7 @@ namespace Vivid.Resonance.Forms
     {
         private bool Pressed = false, Over = false;
         private Vector4 NormCol = new Vector4(1f, 1f, 1f, 1f);
-        private Vector4 OverCol = new Vector4(0.7f, 1f, 1f, 1f);
+        private Vector4 OverCol = new Vector4(0.9f, 0.9f, 0.9f, 1f);
         private Vector4 PressCol = new Vector4(1, 0.8f, 0.8f, 1);
 
         public static Texture2D ButTex = null;
@@ -23,7 +23,7 @@ namespace Vivid.Resonance.Forms
 
             if (ButTex == null)
             {
-                ButTex = new Texture2D("data/nxUI/window/title2.png", LoadMethod.Single, true);
+                ButTex = new Texture2D("data/nxUI/window/title3.png", LoadMethod.Single, true);
             }
             SetImage(ButTex);
             Col = new Vector4(1, 1, 1, 1);

@@ -44,6 +44,21 @@ namespace VividManager.Forms
 
                     var BrowsePath = new ButtonForm().Set(280, 125, 80, 25, "Browse") as ButtonForm;
 
+                    BrowsePath.Click = (b) =>
+                    {
+
+                        var req = new RequestFileForm("Select a empty folder for the project..", "C:/", true);
+                        UI.CurUI.Top.Add(req);
+
+                        req.Selected = (path) =>
+                        {
+
+                            UI.CurUI.Top.Forms.Remove(req);
+
+                        };
+
+                    };
+
                     Body.Add(ProjectName);
                     Body.Add(ProjectType);
                     Body.Add(ProjectPath);
