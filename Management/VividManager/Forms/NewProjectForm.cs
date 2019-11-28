@@ -16,6 +16,8 @@ namespace VividManager.Forms
         TextBoxForm ProjectPath;
         TextBoxForm ProjectName;
         DropDownListForm ProjectType;
+        ButtonForm CreateProject;
+        string NewPath = "";
 
         public NewProjectForm()
         {
@@ -44,6 +46,32 @@ namespace VividManager.Forms
 
                     var BrowsePath = new ButtonForm().Set(280, 125, 80, 25, "Browse") as ButtonForm;
 
+                    CreateProject = new ButtonForm().Set(20, 230, 130, 25, "Create Project") as ButtonForm;
+
+                    Body.Add(CreateProject);
+
+                    CreateProject.Click = (b) =>
+                    {
+
+                        Vivid.Project.VividProject new_proj = new Vivid.Project.VividProject();
+                        new_proj.Path = NewPath;
+                        new_proj.Name = ProjectName.Text;
+                        switch(ProjectType.CurrentItem)
+                        {
+                            case "2D Map Game":
+                                new_proj.Type = Vivid.Project.ProjectType.GameMap;
+                                break;
+                            case "3D Game":
+                                new_proj.Type = Vivid.Project.ProjectType.Game3D;
+                                break;
+                        }
+
+                        VividManager.States.ManagerMain.AddProject(new_proj);
+
+                        UI.CurUI.Top = null;
+
+                    };
+
                     BrowsePath.Click = (b) =>
                     {
 
@@ -53,6 +81,8 @@ namespace VividManager.Forms
                         req.Selected = (path) =>
                         {
 
+                            ProjectPath.Text = path;
+                            NewPath = path;
                             UI.CurUI.Top.Forms.Remove(req);
 
                         };
