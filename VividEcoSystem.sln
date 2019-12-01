@@ -18,6 +18,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management", "Management", "{A880AAD5-4257-4584-B0B2-36394E3CD762}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VividManager", "Management\VividManager\VividManager.csproj", "{7784BAA5-494F-480A-A227-0218C2F4CB47}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94D2C834-6B18-4110-B911-DA566E96F2CC} = {94D2C834-6B18-4110-B911-DA566E96F2CC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

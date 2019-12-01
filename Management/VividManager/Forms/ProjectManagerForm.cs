@@ -8,6 +8,7 @@ using Vivid.Resonance.Forms;
 using Vivid.Texture;
 using Vivid;
 using Vivid.App;
+using System.Diagnostics;
 
 namespace VividManager.Forms
 {
@@ -19,6 +20,18 @@ namespace VividManager.Forms
         ButtonForm DeleteProject = null;
         TreeViewForm ProjectTree = null;
 
+        public void EditProject(string proj,Vivid.Project.ProjectType type)
+        {
+
+            string ide = "C:\\Projects\\VividEcoSystem\\Editors\\MapEditor\\bin\\x64\\Debug\\MapEditor.exe";
+
+            //Process nproc = new Process();
+
+
+            Process.Start(ide, proj);
+            System.Threading.Thread.Sleep(1000);
+            Environment.Exit(0);
+        }
         public ProjectManagerForm()
         {
 
@@ -47,6 +60,20 @@ namespace VividManager.Forms
                     projGroup.Add(LoadProject);
                     projGroup.Add(DeleteProject);
 
+
+                    LoadProject.Click = (b) =>
+                    {
+
+                        var cp = ProjectTree.Selected;
+                        Console.WriteLine("Editing Project:" + cp.TextData[0] + " Type:" + cp.TextData[2]);
+                        switch (cp.TextData[2])
+                        {
+                            case "GameMap":
+                                EditProject(cp.TextData[0], Vivid.Project.ProjectType.GameMap);
+                                break;
+                        }
+
+                    };
 
                     NewProject.Click = (b) =>
                     {
@@ -81,7 +108,12 @@ namespace VividManager.Forms
         public void AddProject(Vivid.Project.VividProject proj)
         {
 
-            ProjectTree.Root.Nodes.Add(new TreeNode(proj.Name + " Type:" + proj.Type.ToString()+" Path:"+proj.Path));
+            var nn = new TreeNode(proj.Name + " Type:" + proj.Type.ToString() + " Path:" + proj.Path);
+            nn.TextData[0] = proj.Path;
+            nn.TextData[1] = proj.Name;
+            nn.TextData[2] = proj.Type.ToString();
+            ProjectTree.Root.Nodes.Add(nn);
+
 
         }
 

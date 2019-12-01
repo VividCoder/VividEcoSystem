@@ -10,6 +10,7 @@ namespace MapEditor
     {
 
         public static string ContentPath = "";
+        public static string ProjectPath = "";
 
     }
 }

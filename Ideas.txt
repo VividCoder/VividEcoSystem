@@ -1,1 +1,2 @@
 Find a way to use Visual Studio IDE for an overall project's scripts.
+Look into ui animations to make things look more snazzy.

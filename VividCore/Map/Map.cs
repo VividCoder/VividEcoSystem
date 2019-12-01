@@ -48,6 +48,36 @@ namespace SpaceEngine.Map
             Lights = new List<GraphLight>();
             sceneChanged = true;
         }
+        public void Read(System.IO.BinaryReader r)
+        {
+
+            TileWidth = r.ReadInt32();
+            TileHeight = r.ReadInt32();
+            int lc = r.ReadInt32();
+            int layc = r.ReadInt32();
+            for(int l = 0; l < layc; l++)
+            {
+
+                var ml = new MapLayer(1,1,this);
+                ml.Read(r);
+
+
+            }
+
+        }
+        public void Write(System.IO.BinaryWriter w)
+        {
+
+            w.Write(TileWidth);
+            w.Write(TileHeight);
+            w.Write(Lights.Count);
+            w.Write(Layers.Count);
+            foreach(var lay in Layers)
+            {
+                lay.Write(w);
+            }
+
+        }
 
         public void AddLight(GraphLight l)
         {

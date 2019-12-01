@@ -28,6 +28,77 @@ namespace SpaceEngine.Map.Layer
             set;
         }
 
+        public void Read(System.IO.BinaryReader r)
+        {
+
+            Width = r.ReadInt32();
+            Height = r.ReadInt32();
+
+            int tc = r.ReadInt32();
+
+
+
+        }
+
+        public void Write(System.IO.BinaryWriter w)
+        {
+
+            w.Write(Width);
+            w.Write(Height);
+
+            List<SpaceEngine.Map.Tile.Tile> UniqueTiles = new List<SpaceEngine.Map.Tile.Tile>();
+
+            for(int y = 0; y < Height; y++)
+            {
+                for(int x = 0; x < Width; x++)
+                {
+
+                    var t = Tiles[x, y];
+                    if (t != null)
+                    {
+                        if (!UniqueTiles.Contains(t))
+                        {
+                            UniqueTiles.Add(t);
+                        }
+                    }
+
+                }
+            }
+
+            w.Write(UniqueTiles.Count);
+
+            foreach(var t in UniqueTiles)
+            {
+
+                t.Write(w);
+
+            }
+
+            for(int y = 0; y < Height; y++)
+            {
+                for(int x = 0; x < Width; x++)
+                {
+                    if (Tiles[x, y] == null)
+                    {
+                        w.Write((int)-1);
+                    }
+                    else
+                    {
+                        int tn = 0;
+                        foreach(var t in UniqueTiles)
+                        {
+                            if (t == Tiles[x, y])
+                            {
+                                w.Write(tn);
+                            }
+                            tn++;
+                        }
+                    }
+                }
+            }
+
+        }
+
         public void Fill(Tile.Tile tile)
         {
 

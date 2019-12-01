@@ -10,6 +10,10 @@ namespace MapEditor
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Editing Project:" + args[0]);
+            GameGlobal.ContentPath = args[0];
+            GameGlobal.ProjectPath = args[0];
             MapEditorApp.InitMapEditor();
 
         }

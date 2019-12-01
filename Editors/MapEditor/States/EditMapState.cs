@@ -24,6 +24,20 @@ namespace MapEditor.States
     {
         public string ContentPath = "C:\\Projects\\GameInfo\\";
 
+        public static void SaveEditState()
+        {
+
+            tileBrowse.SaveState();
+
+        }
+
+        public static void LoadEditState()
+        {
+
+            tileBrowse.LoadState();
+
+        }
+        public static TileBrowser tileBrowse = null;
         public override void InitState()
         {
             GameGlobal.ContentPath = ContentPath;
@@ -33,7 +47,7 @@ namespace MapEditor.States
 
             split1.SetSplit(AppInfo.H - AppInfo.H / 4);
 
-            var tileBrowse = new TileBrowser().Set(0, 0, split1.BotDock.W, split1.BotDock.H) as TileBrowser; ;
+            tileBrowse = new TileBrowser().Set(0, 0, split1.BotDock.W, split1.BotDock.H) as TileBrowser; ;
 
             split1.SetBottom(tileBrowse);
 
@@ -58,6 +72,7 @@ namespace MapEditor.States
             {
 
                 tileBrowse.newSet();
+                SaveEditState();
 
             };
 
@@ -66,6 +81,7 @@ namespace MapEditor.States
 
                 var reqs = new RequestFileForm("Load tileset .ts..", ContentPath);
                 SUI.Top = reqs;
+                
                 reqs.Selected = (path) =>
                 {
                     var ts = new TileSet(path);
@@ -74,7 +90,11 @@ namespace MapEditor.States
 
                     tileBrowse.AddTileSet(ts);
 
+                    SaveEditState();
+
                 };
+
+
 
             };
 
@@ -157,8 +177,8 @@ namespace MapEditor.States
                 Vivid.App.VividApp.PushState(new MapViewer.States.TileSetEditor());
 
             };
-            
 
+            LoadEditState();
         }
 
         public override void UpdateState()

@@ -16,6 +16,8 @@ using SpaceEngine.Map;
 using SpaceEngine.Forms;
 using SpaceEngine.Map.Tile;
 using SpaceEngine.Map.TileSet;
+using System.IO;
+
 namespace MapEditor.Forms
 {
 
@@ -181,6 +183,69 @@ namespace MapEditor.Forms
            
         }
 
+        public void LoadState()
+        {
+            if(!File.Exists(GameGlobal.ProjectPath+"tileBrowse.state"))
+            {
+
+                return;
+
+            }
+            FileStream fs = new FileStream(GameGlobal.ProjectPath + "tileBrowse.state", FileMode.Open, FileAccess.Read);
+            BinaryReader r = new BinaryReader(fs);
+
+            int tc = r.ReadInt32();
+
+            for(int i = 0; i < tc; i++)
+            {
+
+
+                string name = r.ReadString();
+
+                var ts = new TileSetTabPage(name);
+
+                var tm = new Map();
+
+                tm.Read(r);
+
+                Tab.Pages.Add(ts);
+
+            }
+
+            r.Close();
+            fs.Close();
+
+        }
+
+        public void SaveState()
+        {
+
+            FileStream fs = new FileStream(GameGlobal.ProjectPath + "tileBrowse.state", FileMode.Create, FileAccess.Write);
+            BinaryWriter w = new BinaryWriter(fs);
+
+            w.Write(Tab.Pages.Count);
+
+            foreach(var tab in Tab.Pages)
+            {
+
+                var ts = tab as TileSetTabPage;
+
+
+                w.Write(ts.PageName);
+
+                ts.TileMap.Write(w);
+
+
+
+            }
+
+            w.Flush();
+            fs.Flush();
+            w.Close();
+            fs.Close();
+
+
+        }
         public TileBrowser()
         {
 
