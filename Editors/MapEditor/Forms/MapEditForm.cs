@@ -44,15 +44,14 @@ namespace MapEditor.Forms
         public int EditZ = 0;
         public int mX, mY;
         public Vivid.Scene.GraphNode ActiveNode = null;
-
-        public void LoadState()
+        public void LoadMap(string file)
         {
 
-            if(!File.Exists(GameGlobal.ProjectPath+"mapEdit.state"))
+            if (!File.Exists(file))
             {
                 return;
             }
-            FileStream fs = new FileStream(GameGlobal.ProjectPath + "mapEdit.state", FileMode.Open, FileAccess.Read);
+            FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read);
             BinaryReader r = new BinaryReader(fs);
 
             CurMap = new Map();
@@ -71,11 +70,16 @@ namespace MapEditor.Forms
             moveForm.View = View;
 
         }
-
-        public void SaveState()
+        public void LoadState()
         {
+            LoadMap(GameGlobal.ProjectPath + "mapEdit.state");
 
-            FileStream fs = new FileStream(GameGlobal.ProjectPath + "mapEdit.state", FileMode.Create, FileAccess.Write);
+           
+        }
+
+        public void SaveMap(string file)
+        {
+            FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write);
             BinaryWriter w = new BinaryWriter(fs);
 
             w.Write(EditZ);
@@ -87,6 +91,12 @@ namespace MapEditor.Forms
             w.Close();
             fs.Close();
 
+        }
+
+        public void SaveState()
+        {
+            SaveMap(GameGlobal.ProjectPath + "mapEdit.state");
+            
 
         }
 

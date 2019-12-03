@@ -63,8 +63,39 @@ namespace MapEditor.States
 
             var menu_map = menu.AddItem("Map");
 
-            menu_map.Menu.AddItem("Load Map");
-            menu_map.Menu.AddItem("Save Map");
+            var loadm = menu_map.Menu.AddItem("Load Map");
+
+            loadm.Click = (b) =>
+            {
+
+                var req = new RequestFileForm("Select map to load..", GameGlobal.ProjectPath);
+                SUI.Top = req;
+                req.Selected = (path) =>
+                {
+                    mapEdit.LoadMap(path);
+                    SUI.Top = null;
+                };
+
+            };
+
+
+            var savem = menu_map.Menu.AddItem("Save Map");
+
+            savem.Click = (b) =>
+            {
+
+                var req = new RequestFileForm("Select a name to save..", GameGlobal.ProjectPath);
+                SUI.Top = req;
+                req.Selected = (path) =>
+                {
+
+                    mapEdit.SaveMap(path);
+                    SUI.Top = null;
+
+                };
+
+            };
+
             var newm = menu_map.Menu.AddItem("New Map");
 
             newm.Click = (b) =>
