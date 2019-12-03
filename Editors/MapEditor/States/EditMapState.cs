@@ -37,6 +37,7 @@ namespace MapEditor.States
 
             tileBrowse.LoadState();
             mapEdit.LoadState();
+            nodeTree.SetMap(mapEdit.CurMap);
 
         }
         public static MapEditForm mapEdit;

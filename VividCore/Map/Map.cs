@@ -54,6 +54,12 @@ namespace SpaceEngine.Map
             TileWidth = r.ReadInt32();
             TileHeight = r.ReadInt32();
             int lc = r.ReadInt32();
+            for(int i = 0; i < lc; i++)
+            {
+                var l = new Vivid.Scene.GraphLight();
+                l.Read(r);
+                Lights.Add(l);
+            }
             int layc = r.ReadInt32();
             Layers = new List<MapLayer>();
             for(int l = 0; l < layc; l++)
@@ -74,6 +80,10 @@ namespace SpaceEngine.Map
             w.Write(TileWidth);
             w.Write(TileHeight);
             w.Write(Lights.Count);
+            foreach(Vivid.Scene.GraphLight l in Lights)
+            {
+                l.Write(w);
+            }
             w.Write(Layers.Count);
             foreach(var lay in Layers)
             {

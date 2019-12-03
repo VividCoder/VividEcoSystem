@@ -68,6 +68,7 @@ namespace MapEditor.Forms
             fs.Close();
 
             View.SetMap(CurMap);
+            moveForm.View = View;
 
         }
 
@@ -365,6 +366,7 @@ namespace MapEditor.Forms
             
             View.Set(0, 0, Body.W, Body.H);
             SetView(View, moveForm);
+            moveForm.View = View;
 
         }
 
