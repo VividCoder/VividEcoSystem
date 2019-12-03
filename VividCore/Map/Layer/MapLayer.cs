@@ -33,11 +33,31 @@ namespace SpaceEngine.Map.Layer
 
             Width = r.ReadInt32();
             Height = r.ReadInt32();
+            Tiles = new Tile.Tile[Width, Height];
 
             int tc = r.ReadInt32();
 
+            List<Tile.Tile> UniqueTiles = new List<Tile.Tile>();
+
+            for(int i = 0; i < tc; i++)
+            {
+
+                var lt = new Tile.Tile(r);
+                UniqueTiles.Add(lt);
+
+            }
 
 
+            for(int y = 0; y < Height; y++)
+            {
+                for(int x = 0; x < Width; x++)
+                {
+                    int tid = r.ReadInt32();
+                    if (tid == -1) continue;
+                    Tiles[x, y] = UniqueTiles[tid];
+                }
+            }
+            Owner.sceneChanged = true;
         }
 
         public void Write(System.IO.BinaryWriter w)

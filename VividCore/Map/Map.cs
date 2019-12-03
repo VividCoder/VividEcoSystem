@@ -55,15 +55,18 @@ namespace SpaceEngine.Map
             TileHeight = r.ReadInt32();
             int lc = r.ReadInt32();
             int layc = r.ReadInt32();
+            Layers = new List<MapLayer>();
             for(int l = 0; l < layc; l++)
             {
 
                 var ml = new MapLayer(1,1,this);
                 ml.Read(r);
+                Layers.Add(ml);
+
 
 
             }
-
+            
         }
         public void Write(System.IO.BinaryWriter w)
         {

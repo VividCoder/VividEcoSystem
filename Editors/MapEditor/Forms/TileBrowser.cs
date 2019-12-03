@@ -29,13 +29,16 @@ namespace MapEditor.Forms
         public int tx, ty;
         int lmx, lmy;
         public Vivid.Scene.GraphNode ONode;
-        public TileSetTabPage(string name) : base(name)
+        public TileSetTabPage(Map map,string name) : base(name)
         {
             tx = 0;
             ty = 0;
-            TileMap = new Map();
-            TileLayer = new MapLayer(16, 16,TileMap);
-            TileMap.AddLayer(TileLayer);
+            TileMap = map;
+            if (TileMap.Layers.Count == 0)
+            {
+                TileLayer = new MapLayer(16, 16, TileMap);
+                TileMap.AddLayer(TileLayer);
+            }
 
            // var l1 = new Vivid.Scene.GraphLight();
 
@@ -174,7 +177,7 @@ namespace MapEditor.Forms
         public void newSet()
         {
 
-            var setPage = new TileSetTabPage("New set");
+            var setPage = new TileSetTabPage(new SpaceEngine.Map.Map(),"New set");
             setPage.Set(0, 0, Body.W, Body.H);
             Tab.AddPage(setPage);
             
@@ -185,6 +188,7 @@ namespace MapEditor.Forms
 
         public void LoadState()
         {
+           // return;
             if(!File.Exists(GameGlobal.ProjectPath+"tileBrowse.state"))
             {
 
@@ -195,6 +199,9 @@ namespace MapEditor.Forms
             BinaryReader r = new BinaryReader(fs);
 
             int tc = r.ReadInt32();
+            Tab.Pages.Clear();
+
+            if (tc == 0) return;
 
             for(int i = 0; i < tc; i++)
             {
@@ -202,15 +209,33 @@ namespace MapEditor.Forms
 
                 string name = r.ReadString();
 
-                var ts = new TileSetTabPage(name);
 
                 var tm = new Map();
 
                 tm.Read(r);
 
-                Tab.Pages.Add(ts);
+                var ts = new TileSetTabPage(tm,name);
+
+
+               // ts.TileMap = tm;
+                //ts.TileLayer = tm.Layers[0];
+
+              //  ts.TView.Map = tm;
+                //ts.TView.
+                ts.W = Body.W;
+                ts.H = Body.H;
+
+                ts.TView.UpdateGraph();
+
+                ts.Set(0, 0, Body.W, Body.H);
+                Tab.AddPage(ts);
+           
 
             }
+
+            Tab.Shown = Tab.Pages[0];
+
+            
 
             r.Close();
             fs.Close();
@@ -219,6 +244,7 @@ namespace MapEditor.Forms
 
         public void SaveState()
         {
+            //return;
 
             FileStream fs = new FileStream(GameGlobal.ProjectPath + "tileBrowse.state", FileMode.Create, FileAccess.Write);
             BinaryWriter w = new BinaryWriter(fs);

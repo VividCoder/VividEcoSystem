@@ -28,6 +28,7 @@ namespace MapEditor.States
         {
 
             tileBrowse.SaveState();
+            mapEdit.SaveState();
 
         }
 
@@ -35,9 +36,12 @@ namespace MapEditor.States
         {
 
             tileBrowse.LoadState();
+            mapEdit.LoadState();
 
         }
+        public static MapEditForm mapEdit;
         public static TileBrowser tileBrowse = null;
+        public static NodeGraphView nodeTree;
         public override void InitState()
         {
             GameGlobal.ContentPath = ContentPath;
@@ -60,8 +64,32 @@ namespace MapEditor.States
 
             menu_map.Menu.AddItem("Load Map");
             menu_map.Menu.AddItem("Save Map");
-            menu_map.Menu.AddItem("New Map");
-            menu_map.Menu.AddItem("Exit", (b) => { Environment.Exit(1); });
+            var newm = menu_map.Menu.AddItem("New Map");
+
+            newm.Click = (b) =>
+            {
+
+                mapEdit.NewMap();
+
+
+                nodeTree.SetMap(mapEdit.CurMap);
+
+                SaveEditState();
+
+
+            };
+            
+            var exitm=menu_map.Menu.AddItem("Exit");
+
+            exitm.Click = (b) =>
+            {
+                SaveEditState();
+                Environment.Exit(0);
+            };
+                
+                //SaveEditState()
+                //Environment.Exit(1)
+                
 
             var menu_tiles = menu.AddItem("Tiles");
 
@@ -123,7 +151,7 @@ namespace MapEditor.States
 
             split3.SetSplit(150);
 
-            var nodeTree = new NodeGraphView().Set(0, 0, split3.LeftDock.W, split3.LeftDock.H, "Scene Nodes") as NodeGraphView;
+            nodeTree = new NodeGraphView().Set(0, 0, split3.LeftDock.W, split3.LeftDock.H, "Scene Nodes") as NodeGraphView;
 
             split3.SetLeft(nodeTree);
 
@@ -134,7 +162,7 @@ namespace MapEditor.States
 
             //split3.SetLeft(nodeBrowse);
 
-            var mapEdit = new MapEditForm().Set(0, 0, split3.RightDock.W, split3.RightDock.H) as MapEditForm;
+            mapEdit = new MapEditForm().Set(0, 0, split3.RightDock.W, split3.RightDock.H) as MapEditForm;
 
             nodeTree.SetMap(mapEdit.CurMap);
 

@@ -116,6 +116,13 @@ namespace SpaceEngine.Forms
 
         }
 
+        public void SetMap(Map.Map map)
+        {
+            Map = map;
+
+
+        }
+
         public MapViewForm(Map.Map map, bool Shadows = true)
         {
             shadows = Shadows;

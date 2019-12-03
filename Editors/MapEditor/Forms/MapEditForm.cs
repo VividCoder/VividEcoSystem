@@ -16,6 +16,7 @@ using SpaceEngine.Map;
 using SpaceEngine.Forms;
 using SpaceEngine.Map.Tile;
 using SpaceEngine.Map.TileSet;
+using System.IO;
 namespace MapEditor.Forms
 {
     public enum EditMode
@@ -43,23 +44,71 @@ namespace MapEditor.Forms
         public int EditZ = 0;
         public int mX, mY;
         public Vivid.Scene.GraphNode ActiveNode = null;
+
+        public void LoadState()
+        {
+
+            if(!File.Exists(GameGlobal.ProjectPath+"mapEdit.state"))
+            {
+                return;
+            }
+            FileStream fs = new FileStream(GameGlobal.ProjectPath + "mapEdit.state", FileMode.Open, FileAccess.Read);
+            BinaryReader r = new BinaryReader(fs);
+
+            CurMap = new Map();
+
+            EditZ = r.ReadInt32();
+
+            lay.Text = EditZ.ToString();
+
+            CurMap.Read(r);
+
+            r.Close();
+
+            fs.Close();
+
+            View.SetMap(CurMap);
+
+        }
+
+        public void SaveState()
+        {
+
+            FileStream fs = new FileStream(GameGlobal.ProjectPath + "mapEdit.state", FileMode.Create, FileAccess.Write);
+            BinaryWriter w = new BinaryWriter(fs);
+
+            w.Write(EditZ);
+
+            CurMap.Write(w);
+
+            w.Flush();
+            fs.Flush();
+            w.Close();
+            fs.Close();
+
+
+        }
+
+        TextBoxForm lay;
+        MoveNodeForm moveForm;
         public MapEditForm()
+
 
         {
 
             var layDown = new ButtonForm().Set(140, -20, 30, 20, "\\/");
-            var layUp = new ButtonForm().Set(240, -20,30, 20, "/\\");
-            var lay = new TextBoxForm().Set(175, -20, 70, 20, "0");
-                Body.Add(layDown);
+            var layUp = new ButtonForm().Set(240, -20, 30, 20, "/\\");
+            lay = new TextBoxForm().Set(175, -20, 70, 20, "0") as TextBoxForm;
+            Body.Add(layDown);
             Body.Add(layUp);
             Body.Add(lay);
 
             layDown.Click = (b) =>
-              {
-                  EditZ--;
-                  if (EditZ < 0) EditZ = 0;
-                  lay.Text = EditZ.ToString();
-              };
+            {
+                EditZ--;
+                if (EditZ < 0) EditZ = 0;
+                lay.Text = EditZ.ToString();
+            };
             layUp.Click = (b) =>
             {
                 EditZ++;
@@ -70,30 +119,17 @@ namespace MapEditor.Forms
                 lay.Text = EditZ.ToString();
             };
             Tab = new TabForm();
-
-            CurMap = new Map();
-            for(int i = 0; i < 4; i++)
-            {
-
-                Layers.Add(new MapLayer(24, 24,CurMap));
-                CurMap.AddLayer(Layers[i]);
-            }
-            //CurMap.AddLayer(layer[0]);
-
-            CurLayer = Layers[0];
-
-            CurTile = null;
-
-
-            View = new MapViewForm(CurMap);
+            moveForm = new MoveNodeForm().Set(0, 0, 0, 0) as MoveNodeForm;
+            moveForm.View = View;
+            NewMap();
 
             var l1 = new Vivid.Scene.GraphLight();
             var l2 = new Vivid.Scene.GraphLight();
             var l3 = new Vivid.Scene.GraphLight();
 
-//            View.Map.AddLight(l1);
-  //          View.Map.AddLight(l2);
-    //        View.Map.AddLight(l3);
+            //            View.Map.AddLight(l1);
+            //          View.Map.AddLight(l2);
+            //        View.Map.AddLight(l3);
 
             LabelForm cLab = null;
             ; var TView = View;
@@ -123,7 +159,7 @@ namespace MapEditor.Forms
                 TView.Map.Lights[2].SetPos(150, 150);
                 */
 
-              
+
             };
 
             void updateModeLabel()
@@ -140,10 +176,27 @@ namespace MapEditor.Forms
 
             updateModeLabel();
 
-            Body.Add(View);
+            // Body.Add(View);
 
-            MoveNodeForm moveForm = new MoveNodeForm().Set(0, 0, 0, 0) as MoveNodeForm;
-            moveForm.View = TView;
+  
+    
+
+            AfterSet = () =>
+            {
+
+                Tab.W = W;
+                Tab.H = Body.H;
+                View.Set(0, 0, Body.W, Body.H);
+                View.UpdateGraph();
+
+            };
+
+
+
+        }
+
+        private void SetView(MapViewForm TView, MoveNodeForm moveForm)
+        {
             TView.Add(moveForm);
 
             TView.MouseDown = (b) =>
@@ -164,13 +217,13 @@ namespace MapEditor.Forms
                 var pn = TView.PickObj(mX, mY);
                 if (pn != null)
                 {
-                    if(pn is Vivid.Scene.GraphLight)
+                    if (pn is Vivid.Scene.GraphLight)
                     {
                         ActiveNode = pn;
                         TView.ActiveNode = pn;
                         TView.SetActiveSprite();
                         moveForm.SetNode(TView.ActiveNode);
-                        moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y,64,64);
+                        moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y, 64, 64);
                         Console.WriteLine("Set PN");
                     }
                     else
@@ -189,16 +242,16 @@ namespace MapEditor.Forms
 
                 if (hz != null)
                 {
-                   
+
                 }
 
-               
+
 
             };
             TView.MouseWheelMoved = (z) =>
             {
 
-                TView.Graph.Z += ((z * 0.1f)*TView.Graph.Z);
+                TView.Graph.Z += ((z * 0.1f) * TView.Graph.Z);
 
             };
             TView.MouseUp = (b) =>
@@ -227,9 +280,9 @@ namespace MapEditor.Forms
                 }
                 if (MoveCam)
                 {
-                    TView.Graph.Move(-dx,-dy);
+                    TView.Graph.Move(-dx, -dy);
                     //TView.Graph.X -= dx;
-                   // TView.Graph.Y -= dy;
+                    // TView.Graph.Y -= dy;
 
                 }
 
@@ -261,15 +314,15 @@ namespace MapEditor.Forms
                         }
 
                         var tView = TView;
-                    
+
                         TView.Map.HL.Clear();
                         TView.Map.HighlightTile(node.TileX, node.TileY);
                         TView.UpdateGraph();
 
-                   
+
                         if (TView.ActiveNodeSprite != null)
                         {
-                           // TView.ActiveNodeSprite.SyncCoords();
+                            // TView.ActiveNodeSprite.SyncCoords();
                             if (TView.ActiveNodeSprite.DrawP != null)
                             {
                                 moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y, 64, 64);
@@ -287,19 +340,31 @@ namespace MapEditor.Forms
                     }
                 }
             };
+        }
 
-
-            AfterSet = () =>
+        public void NewMap()
+        {
+            CurMap = new Map();
+            for (int i = 0; i < 4; i++)
             {
 
-                Tab.W = W;
-                Tab.H = Body.H;
-                View.Set(0, 0, Body.W, Body.H);
-                View.UpdateGraph();
+                Layers.Add(new MapLayer(24, 24, CurMap));
+                CurMap.AddLayer(Layers[i]);
+            }
+            //CurMap.AddLayer(layer[0]);
 
-            };
+            CurLayer = Layers[0];
 
-          
+            CurTile = null;
+
+
+           // Body.Forms.Remove(View);
+            View = new MapViewForm(CurMap);
+            View.UpdateGraph();
+            Body.Add(View);
+            
+            View.Set(0, 0, Body.W, Body.H);
+            SetView(View, moveForm);
 
         }
 
