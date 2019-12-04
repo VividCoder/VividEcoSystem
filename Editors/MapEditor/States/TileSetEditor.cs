@@ -6,13 +6,15 @@ using Vivid.App;
 using Vivid.Resonance;
 using Vivid.Resonance.Forms;
 using Vivid.State;
-namespace MapViewer.States
+using MapEditor;
+namespace MapEditor.States
 {
 
     public class TileSetEditor : VividState
     {
 
-        public string ContentPath = "C:/Projects/GameInfo/";
+
+        //public string ContentPath =  GameGlobal.
         public SpaceEngine.Map.TileSet.TileSet CurSet = new SpaceEngine.Map.TileSet.TileSet("new set");
         public SpaceEngine.Map.Map CurSetMap;
         public SpaceEngine.Map.Layer.MapLayer CurSetLayer;
@@ -46,6 +48,7 @@ namespace MapViewer.States
             setX = 0;
             setY = 0;
             CurSetMap = new Map();
+            
 
             var setLight = new Vivid.Scene.GraphLight();
 
@@ -69,15 +72,31 @@ namespace MapViewer.States
 
             MapViewForm tileSet_View = new MapViewForm(CurSetMap).Set(0, 25, set_Editor.Body.W, set_Editor.Body.H - 25) as MapViewForm;
             tView = tileSet_View;
+           
+            
+            // tileSet_View.LockCam = true;
+            //tileSet_View.LockX = (set_Editor.Body.W / 2)-32;
+            //tileSet_View.LockY = (set_Editor.Body.H / 2)-48;
+            bool move_on = false;
             //CurSetMap = new Map(1);
             tView.MouseLeave = () =>
             {
                 ClearHL(tileSet_View);
 
             };
+            tView.MouseUp = (b) =>
+            {
+                if (b == 1)
+                {
+                    move_on = false;
+                }
+            };
             tView.MouseDown = (b) =>
             {
-
+                if (b == 1)
+                {
+                    move_on = true;
+                }
                 if (CurTile != null)
                 {
                     Inspect.SetObj(CurTile);
@@ -89,6 +108,21 @@ namespace MapViewer.States
 
                 if (tView.Graph != null)
                 {
+
+                    if (move_on == true)
+                    {
+                        tView.Graph.Move(-dx, -dy);
+                        if (tView.Graph.X > (tileSet_View.W / 2) - 32)
+                        {
+                            tView.Graph.X = ((tileSet_View.W / 2) - 32)-6;
+
+                        };
+                        if(tView.Graph.Y > (tileSet_View.H / 2) - 32)
+                        {
+                            tView.Graph.Y = ((tileSet_View.H / 2) - 32)-6;
+                        }
+
+                    }
 
                     AppInfo.RW = tView.MapFrame.IW;
                     AppInfo.RH = tView.MapFrame.IH;
@@ -126,7 +160,7 @@ namespace MapViewer.States
             void click_AddFolder()
             {
 
-                var req = new RequestFileForm("Select a folder to scan..", ContentPath, true);
+                var req = new RequestFileForm("Select a folder to scan..", GameGlobal.ContentPath, true);
                 SUI.Top = req;
 
                 req.Selected = (path) =>
@@ -145,6 +179,12 @@ namespace MapViewer.States
                             case ".bmp":
                             case ".jpg":
                             case ".tga":
+
+                                if(file.FullName.ToLower().Contains("nrm"))
+                                {
+                                    continue;
+                                }
+
                                 FAddTile(file.FullName);
 
                                 break;
@@ -172,7 +212,7 @@ namespace MapViewer.States
             void click_AddTile()
             {
 
-                var addReq = new RequestFileForm("Add Tile to set...", ContentPath);
+                var addReq = new RequestFileForm("Add Tile to set...", GameGlobal.ContentPath);
                 SUI.Top = addReq;
 
                 addReq.Selected = (path) =>
@@ -205,6 +245,8 @@ namespace MapViewer.States
         private static void ResetMap(MapViewForm tileSet_View)
         {
             tileSet_View.UpdateGraph();
+            tileSet_View.Graph.X = (tileSet_View.W / 2)-32;
+            tileSet_View.Graph.Y = (tileSet_View.H / 2)-32;
             //   tileSet_View.Graph.X = -32 + tileSet_View.W / 2;
             //  tileSet_View.Graph.Y = -32 + tileSet_View.H / 2;
         }
@@ -286,7 +328,7 @@ namespace MapViewer.States
             void click_LoadSet(int b)
             {
 
-                var req = new RequestFileForm("Load set..", ContentPath);
+                var req = new RequestFileForm("Load set..", GameGlobal.ContentPath);
                 SUI.Top = req;
 
                 req.Selected = (path) =>
@@ -316,7 +358,7 @@ namespace MapViewer.States
 
             void click_SaveSet(int b)
             {
-                var req = new RequestFileForm("Save set as..", ContentPath);
+                var req = new RequestFileForm("Save set as..", GameGlobal.ContentPath);
 
                 SUI.Top = req;
 

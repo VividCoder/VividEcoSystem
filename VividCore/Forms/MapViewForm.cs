@@ -123,6 +123,8 @@ namespace SpaceEngine.Forms
 
         }
 
+        public bool LockCam = false;
+        public int LockX, LockY;
         public MapViewForm(Map.Map map, bool Shadows = true)
         {
             shadows = Shadows;
@@ -180,8 +182,14 @@ namespace SpaceEngine.Forms
                     MapFrame.Bind();
                     Changed = false;
                     //Console.WriteLine("Rendering map");
-                   // AppInfo.RW = AppInfo.RW;
+                    // AppInfo.RW = AppInfo.RW;
                     //AppInfo.RH = AppInfo.RH;
+                    if (LockCam)
+                    {
+                        Graph.X = LockX;
+                        Graph.Y = LockY;
+                    }
+                     
                     Graph.Draw(shadows);
                     
                     foreach(var l in Graph.Lights)

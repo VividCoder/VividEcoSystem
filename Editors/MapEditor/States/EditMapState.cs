@@ -45,7 +45,7 @@ namespace MapEditor.States
         public static NodeGraphView nodeTree;
         public override void InitState()
         {
-            GameGlobal.ContentPath = ContentPath;
+           // GameGlobal.ContentPath = ContentPath;
             base.InitState();
 
             var split1 = new HorizontalSplitterForm().Set(0, 0, AppInfo.W, AppInfo.H) as HorizontalSplitterForm;
@@ -139,7 +139,7 @@ namespace MapEditor.States
             tiles_addSet.Click = (b) =>
             {
 
-                var reqs = new RequestFileForm("Load tileset .ts..", ContentPath);
+                var reqs = new RequestFileForm("Load tileset .ts..", GameGlobal.ContentPath);
                 SUI.Top = reqs;
                 
                 reqs.Selected = (path) =>
@@ -234,7 +234,7 @@ namespace MapEditor.States
             mode_Tiles.Click = ()=>{
 
                 UI.Menu = null;
-                Vivid.App.VividApp.PushState(new MapViewer.States.TileSetEditor());
+                Vivid.App.VividApp.PushState(new MapEditor.States.TileSetEditor());
 
             };
 
