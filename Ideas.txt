@@ -1,2 +1,8 @@
 Find a way to use Visual Studio IDE for an overall project's scripts.
 Look into ui animations to make things look more snazzy.
+
+-Find beta testers for game/engine before release.
+
+A common "Game" set up for new games, with the tools/ide simply providing the overall data/structure.
+
+- Intro is the corona logo rising.
