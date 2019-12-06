@@ -29,7 +29,7 @@ namespace MapEditor.Forms
         EditMode lMode = EditMode.Paste;
         public TabForm Tab = null;
         public MapViewForm View;
-        public SpaceEngine.Map.Map CurMap;
+ 
         public List<MapLayer> Layers = new List<MapLayer>();
         public MapLayer CurLayer;
         public Vivid.Scene.GraphNode ONode;
@@ -54,19 +54,20 @@ namespace MapEditor.Forms
             FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read);
             BinaryReader r = new BinaryReader(fs);
 
-            CurMap = new Map();
+            GameGlobal.EditMap = new Map();
+
 
             EditZ = r.ReadInt32();
 
             lay.Text = EditZ.ToString();
 
-            CurMap.Read(r);
+            GameGlobal.EditMap.Read(r);
 
             r.Close();
 
             fs.Close();
 
-            View.SetMap(CurMap);
+            View.SetMap(GameGlobal.EditMap);
             moveForm.View = View;
 
         }
@@ -84,7 +85,7 @@ namespace MapEditor.Forms
 
             w.Write(EditZ);
 
-            CurMap.Write(w);
+            GameGlobal.EditMap.Write(w);
 
             w.Flush();
             fs.Flush();
@@ -155,6 +156,7 @@ namespace MapEditor.Forms
                     updateModeLabel();
                     lMode = Mode;
                 }
+                View.UpdateGraph();
                 /*
                 TView.Map.Lights[0].SetPos(300,300);
                 TView.Map.Lights[0].Range = 450;
@@ -355,12 +357,13 @@ namespace MapEditor.Forms
 
         public void NewMap()
         {
-            CurMap = new Map();
+
+            GameGlobal.EditMap = new Map();
             for (int i = 0; i < 4; i++)
             {
 
-                Layers.Add(new MapLayer(24, 24, CurMap));
-                CurMap.AddLayer(Layers[i]);
+                Layers.Add(new MapLayer(24, 24, GameGlobal.EditMap));
+                GameGlobal.EditMap.AddLayer(Layers[i]);
             }
             //CurMap.AddLayer(layer[0]);
 
@@ -370,7 +373,7 @@ namespace MapEditor.Forms
 
 
            // Body.Forms.Remove(View);
-            View = new MapViewForm(CurMap);
+            View = new MapViewForm(GameGlobal.EditMap);
             View.UpdateGraph();
             Body.Add(View);
             

@@ -49,6 +49,8 @@ namespace SpaceEngine.Forms
         public void UpdateGraph()
         {
             float gx, gy;
+
+            //Console.WriteLine("Updating graph.");
             if (Graph != null)
             {
                 gr = Graph.Rot;
@@ -57,6 +59,11 @@ namespace SpaceEngine.Forms
                 gz = Graph.Z;
 
                 //var sb  SceneGraph.ShadowBuf;
+                if (Map.Markers.Count > 0)
+                {
+
+                    int vv = 5;
+                }
                 Graph = Map.UpdateGraph(Map.Layers[0].Width,Map.Layers[0].Height);
                 Graph.X = gx;
                 Graph.Y = gy;
@@ -92,6 +99,7 @@ namespace SpaceEngine.Forms
         GraphSprite[] ActiveNodeArrow = new GraphSprite[4];
         GraphSprite ActiveNodePivot = null;
         GraphSprite nodeUp, nodeLeft, nodeDown, nodeRight;
+        GraphSprite nodeMarker;
 
         public GraphNode PickObj(int x,int y)
         {
@@ -142,6 +150,7 @@ namespace SpaceEngine.Forms
             nodeUp = new GraphSprite(new Tex2D("content/edit/up.png", true),null, 32, 32);
             nodeRight = new GraphSprite(new Tex2D("content/edit/right.png", true),null, 32, 32);
             nodeDown = new GraphSprite(new Tex2D("content/edit/down.png", true),null, 32, 32);
+            nodeMarker = new GraphSprite(new Tex2D("content/edit/marker.png", true),null, 64, 64);
             if (MapFrame == null)
             {
 
@@ -161,8 +170,12 @@ namespace SpaceEngine.Forms
             PreDraw = () =>
             {
 
-                
-                if (Graph != null && Changed)
+                if (Map.sceneChanged)
+                {
+                //    Graph = map.UpdateGraph()
+                }
+
+                if (Graph != null)
                 {
                     if (shadows)
                     {
@@ -203,6 +216,23 @@ namespace SpaceEngine.Forms
                         Graph.DrawSingleNode(LightSprite);
 
                     }
+
+                    foreach(var m in Graph.Markers)
+                    {
+
+                        nodeMarker.X = m.X;
+                        nodeMarker.Y = m.Y;
+                        nodeMarker.W = 64;
+                        nodeMarker.H = 64;
+                        nodeMarker.Graph = Graph;
+                        Graph.DrawSingleNode(nodeMarker);
+                        //Environment.Exit(1);
+
+                    }
+               //     Environment.Exit(1);
+                    //foreach()
+
+
 
                     if (ActiveNode != null)
                     {

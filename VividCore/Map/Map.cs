@@ -40,12 +40,19 @@ namespace SpaceEngine.Map
             set;
         }
 
+        public List<GraphMarker> Markers
+        {
+            get;
+            set;
+        }
+
         public Map()
         {
 
             Layers = new List<MapLayer>();
             TileWidth = TileHeight = 64;
             Lights = new List<GraphLight>();
+            Markers = new List<GraphMarker>();
             sceneChanged = true;
         }
         public void Read(System.IO.BinaryReader r)
@@ -96,6 +103,12 @@ namespace SpaceEngine.Map
         {
 
             Lights.Add(l);
+            sceneChanged = true;
+        }
+
+        public void AddMarker(GraphMarker m)
+        {
+            Markers.Add(m);
             sceneChanged = true;
         }
 
@@ -159,7 +172,7 @@ namespace SpaceEngine.Map
         SceneGraph2D oGraph = null;
         public Vivid.Scene.SceneGraph2D UpdateGraph(int tw,int th)
         {
-            if (sceneChanged == false) return oGraph;
+          //  if (sceneChanged == false) return oGraph;
             Vivid.Scene.SceneGraph2D Graph = oGraph;
             if (oGraph == null)
             {
@@ -229,6 +242,14 @@ namespace SpaceEngine.Map
             {
                 Graph.Lights.Clear();
                 Graph.Add(Lights.ToArray());
+            }
+
+            Graph.Markers.Clear();
+            foreach(var m in this.Markers)
+            {
+
+                Graph.Markers.Add(m);
+
             }
            // Graph.Add(Lights.ToArray());
             foreach (var l in Lights)

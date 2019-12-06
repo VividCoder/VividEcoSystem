@@ -28,9 +28,24 @@ namespace MapEditor.Forms
 
             var m_nodes=menu.AddItem("Nodes");
 
+            var m_logic = m_nodes.Menu.AddItem("Logic");
+
+            var l_marker = m_logic.Menu.AddItem("Marker");
+
             var n_lights=m_nodes.Menu.AddItem("Lights");
 
             var l_pointL = n_lights.Menu.AddItem("Point Light");
+
+            l_marker.Click = () =>
+            {
+
+                var gm = new Vivid.Scene.GraphMarker();
+                gm.SetPos(300, 300);
+                GameGlobal.EditMap.AddMarker(gm);
+                
+                
+
+            };
 
             l_pointL.Click = () =>
             {

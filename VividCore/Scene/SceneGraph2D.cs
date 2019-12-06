@@ -84,6 +84,8 @@ namespace Vivid.Scene
             set;
         }
 
+        public List<GraphMarker> Markers = new List<GraphMarker>();
+
         public static FrameBuffer.FrameBufferColor ShadowBuf = null;
         public static Texture.Texture2D White1 = null;
         static int sc = 0;

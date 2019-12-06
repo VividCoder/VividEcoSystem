@@ -37,7 +37,7 @@ namespace MapEditor.States
 
             tileBrowse.LoadState();
             mapEdit.LoadState();
-            nodeTree.SetMap(mapEdit.CurMap);
+            nodeTree.SetMap(GameGlobal.EditMap);///mapEdit.CurMap);
 
         }
         public static MapEditForm mapEdit;
@@ -104,7 +104,7 @@ namespace MapEditor.States
                 mapEdit.NewMap();
 
 
-                nodeTree.SetMap(mapEdit.CurMap);
+                nodeTree.SetMap(GameGlobal.EditMap);
 
                 SaveEditState();
 
@@ -196,7 +196,7 @@ namespace MapEditor.States
 
             mapEdit = new MapEditForm().Set(0, 0, split3.RightDock.W, split3.RightDock.H) as MapEditForm;
 
-            nodeTree.SetMap(mapEdit.CurMap);
+            nodeTree.SetMap(GameGlobal.EditMap);
 
             split3.SetRight(mapEdit);
 

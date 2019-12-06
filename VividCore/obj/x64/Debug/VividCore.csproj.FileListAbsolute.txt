@@ -9,7 +9,6 @@ C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\VividCore.pdb
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\AssimpNet.dll
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\CSScriptLibrary.dll
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\irrKlang.NET4.dll
-C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\NLua.dll
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\OpenTK.dll
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\PhysX.Net.dll
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\SharpFont.dll

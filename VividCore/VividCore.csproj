@@ -238,6 +238,7 @@
     <Compile Include="Scene\FusionBase.cs" />
     <Compile Include="Scene\GenList.cs" />
     <Compile Include="Scene\GraphLight.cs" />
+    <Compile Include="Scene\GraphMarker.cs" />
     <Compile Include="Scene\GraphNode.cs" />
     <Compile Include="Scene\GraphParticle3D.cs" />
     <Compile Include="Scene\GraphSprite.cs" />
