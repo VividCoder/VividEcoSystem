@@ -6,3 +6,7 @@ Look into ui animations to make things look more snazzy.
 A common "Game" set up for new games, with the tools/ide simply providing the overall data/structure.
 
 - Intro is the corona logo rising.
+
+- ScopeNine possible change of direction.
+
+-Enter The Devil
