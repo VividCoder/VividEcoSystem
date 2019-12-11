@@ -67,6 +67,13 @@ namespace SpaceEngine.Map
                 l.Read(r);
                 Lights.Add(l);
             }
+            int mc = r.ReadInt32();
+            for (int i = 0; i < mc; i++)
+            {
+                var m = new Vivid.Scene.GraphMarker();
+                m.Read(r);
+                Markers.Add(m);
+            }
             int layc = r.ReadInt32();
             Layers = new List<MapLayer>();
             for(int l = 0; l < layc; l++)
@@ -90,6 +97,11 @@ namespace SpaceEngine.Map
             foreach(Vivid.Scene.GraphLight l in Lights)
             {
                 l.Write(w);
+            }
+            w.Write(Markers.Count);
+            foreach(Vivid.Scene.GraphMarker m in Markers)
+            {
+                m.Write(w);
             }
             w.Write(Layers.Count);
             foreach(var lay in Layers)

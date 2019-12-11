@@ -104,6 +104,15 @@ namespace SpaceEngine.Forms
         public GraphNode PickObj(int x,int y)
         {
 
+            foreach(var m in Graph.Markers)
+            {
+                m.Graph = Graph;
+                var rm = Graph.PickNode(m, x, y);
+                if(rm == m)
+                {
+                    return m;
+                }
+            }
             foreach(var l in Graph.Lights)
             {
                 float oz = l.Z;

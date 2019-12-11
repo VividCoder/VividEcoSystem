@@ -299,7 +299,7 @@ namespace Vivid.Scene
 
         public string ImgLinkName = "";
 
-        public void Read(BinaryReader r)
+        public virtual void Read(BinaryReader r)
         {
             X = r.ReadSingle();
             Y = r.ReadSingle();
@@ -332,7 +332,7 @@ namespace Vivid.Scene
             }
         }
 
-        public void Write(BinaryWriter w)
+        public virtual void Write(BinaryWriter w)
         {
             w.Write(X);
             w.Write(Y);

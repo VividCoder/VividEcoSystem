@@ -140,7 +140,7 @@ namespace Vivid.Scene
             SB2 = new FrameBuffer.FrameBufferColor(w, h);
         }
 
-        public void Write(BinaryWriter w)
+        public override void Write(BinaryWriter w)
         {
             w.Write(X);
             w.Write(Y);

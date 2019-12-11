@@ -10,3 +10,5 @@ A common "Game" set up for new games, with the tools/ide simply providing the ov
 - ScopeNine possible change of direction.
 
 -Enter The Devil
+
+- Procedural missions.

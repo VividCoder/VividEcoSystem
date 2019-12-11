@@ -230,6 +230,16 @@ namespace MapEditor.Forms
                 var pn = TView.PickObj(mX, mY);
                 if (pn != null)
                 {
+                    if(pn is Vivid.Scene.GraphMarker)
+                    {
+                        ActiveNode = pn;
+                        TView.ActiveNode = pn;
+                        TView.SetActiveSprite();
+                        moveForm.SetNode(TView.ActiveNode);
+                        moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y, 64, 64);
+                        Console.WriteLine("Set PN");
+
+                    }
                     if (pn is Vivid.Scene.GraphLight)
                     {
                         ActiveNode = pn;
