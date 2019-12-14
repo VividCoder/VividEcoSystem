@@ -13,16 +13,12 @@ C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\OpenTK.dll
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\PhysX.Net.dll
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\SharpFont.dll
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\zlib.net.dll
-C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\KeraLua.dll
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\AssimpNet.xml
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\CSScriptLibrary.xml
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\OpenTK.pdb
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\OpenTK.xml
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\PhysX.Net.pdb
 C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\SharpFont.xml
-C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\XInputDotNetPure.pdb
-C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\KeraLua.xml
 C:\Projects\VividEcoSystem\VividCore\obj\x64\Debug\VividCore.csproj.CopyComplete
 C:\Projects\VividEcoSystem\VividCore\obj\x64\Debug\VividCore.dll
 C:\Projects\VividEcoSystem\VividCore\obj\x64\Debug\VividCore.pdb
-C:\Projects\VividEcoSystem\VividCore\obj\x64\Debug\VividCore.csprojAssemblyReference.cache
