@@ -13,7 +13,7 @@ namespace MapEditor.Forms
 
         public static Texture2D up, down, left, right;
         public Vivid.Scene.GraphNode Node;
-        public SpaceEngine.Forms.MapViewForm View;
+        public Vivid.Forms.MapViewForm View;
         public void SetNode(Vivid.Scene.GraphNode n)
         {
             Node = n;

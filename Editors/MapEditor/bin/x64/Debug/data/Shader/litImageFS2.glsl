@@ -71,6 +71,10 @@ void main(){
 
     }
 
+    if(DiffuseColor.a < 0.1)
+    {
+        discard;
+    }
 
     color =  vec4(FinalColor*mag, DiffuseColor.a);
 

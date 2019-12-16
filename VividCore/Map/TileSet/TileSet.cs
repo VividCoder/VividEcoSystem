@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceEngine.Map.TileSet
+namespace Vivid.Map.TileSet
 {
     public class TileSet
     {

@@ -10,12 +10,12 @@ using Vivid.Resonance;
 using Vivid.Resonance.Forms;
 using Vivid.Tex;
 using Vivid.Texture;
-using SpaceEngine;
-using SpaceEngine.Map.Layer;
-using SpaceEngine.Map;
-using SpaceEngine.Forms;
-using SpaceEngine.Map.Tile;
-using SpaceEngine.Map.TileSet;
+using Vivid;
+using Vivid.Map.Layer;
+using Vivid.Map;
+using Vivid.Forms;
+using Vivid.Map.Tile;
+using Vivid.Map.TileSet;
 using System.IO;
 
 namespace MapEditor.Forms
@@ -178,7 +178,7 @@ namespace MapEditor.Forms
         public void newSet()
         {
 
-            var setPage = new TileSetTabPage(new SpaceEngine.Map.Map(),"New set");
+            var setPage = new TileSetTabPage(new Vivid.Map.Map(),"New set");
             setPage.Set(0, 0, Body.W, Body.H);
             Tab.AddPage(setPage);
             

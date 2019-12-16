@@ -1,5 +1,5 @@
-﻿using SpaceEngine.Forms;
-using SpaceEngine.Map;
+﻿using Vivid.Forms;
+using Vivid.Map;
 using System;
 using System.IO;
 using Vivid.App;
@@ -15,9 +15,9 @@ namespace MapEditor.States
 
 
         //public string ContentPath =  GameGlobal.
-        public SpaceEngine.Map.TileSet.TileSet CurSet = new SpaceEngine.Map.TileSet.TileSet("new set");
-        public SpaceEngine.Map.Map CurSetMap;
-        public SpaceEngine.Map.Layer.MapLayer CurSetLayer;
+        public Vivid.Map.TileSet.TileSet CurSet = new Vivid.Map.TileSet.TileSet("new set");
+        public Vivid.Map.Map CurSetMap;
+        public Vivid.Map.Layer.MapLayer CurSetLayer;
         public int setWidth = 16;
         public int setHeight = 16;
         public int setX, setY;
@@ -42,7 +42,7 @@ namespace MapEditor.States
             return Inspect as WindowForm;
 
         }
-        public static SpaceEngine.Map.Tile.Tile CurTile = null;
+        public static Vivid.Map.Tile.Tile CurTile = null;
         public WindowForm CrTileSetEditor()
         {
             setX = 0;
@@ -151,7 +151,7 @@ namespace MapEditor.States
                 }
             };
 
-            CurSetLayer = CurSetMap.AddLayer(new SpaceEngine.Map.Layer.MapLayer(setWidth, setHeight,CurSetMap));
+            CurSetLayer = CurSetMap.AddLayer(new Vivid.Map.Layer.MapLayer(setWidth, setHeight,CurSetMap));
 
 
 
@@ -253,7 +253,7 @@ namespace MapEditor.States
 
         private void FAddTile(string path)
         {
-            var nTile = new SpaceEngine.Map.Tile.Tile(path);
+            var nTile = new Vivid.Map.Tile.Tile(path);
 
             CurSet.Tiles.Add(nTile);
 
@@ -334,7 +334,7 @@ namespace MapEditor.States
                 req.Selected = (path) =>
                 {
 
-                    CurSet = new SpaceEngine.Map.TileSet.TileSet("");
+                    CurSet = new Vivid.Map.TileSet.TileSet("");
                     CurSet.Load(path);
 
                     CurSetLayer.Fill(null);

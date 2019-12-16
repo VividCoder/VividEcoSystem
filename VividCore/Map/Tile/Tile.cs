@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.Tex;
-namespace SpaceEngine.Map.Tile
+namespace Vivid.Map.Tile
 {
     public class Tile
     {

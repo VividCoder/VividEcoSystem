@@ -10,6 +10,10 @@ namespace ScopeNine
     {
         static void Main(string[] args)
         {
+
+            var app = new ScopeNineApp();
+
+
         }
     }
 }

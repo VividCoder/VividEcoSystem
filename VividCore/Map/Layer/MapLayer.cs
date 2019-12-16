@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceEngine.Map.Layer
+namespace Vivid.Map.Layer
 {
     public class MapLayer
     {
@@ -66,7 +66,7 @@ namespace SpaceEngine.Map.Layer
             w.Write(Width);
             w.Write(Height);
 
-            List<SpaceEngine.Map.Tile.Tile> UniqueTiles = new List<SpaceEngine.Map.Tile.Tile>();
+            List<Vivid.Map.Tile.Tile> UniqueTiles = new List<Vivid.Map.Tile.Tile>();
 
             for(int y = 0; y < Height; y++)
             {

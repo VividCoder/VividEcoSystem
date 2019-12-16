@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SpaceEngine.Map.Layer;
+using Vivid.Map.Layer;
 using Vivid.Scene;
 using Vivid.Tex;
-namespace SpaceEngine.Map
+namespace Vivid.Map
 {
     public class Map
     {

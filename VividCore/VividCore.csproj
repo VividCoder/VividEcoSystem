@@ -154,6 +154,9 @@
     <Compile Include="Gameplay\GameplayTemplate.cs" />
     <Compile Include="Gameplay\InputAgent.cs" />
     <Compile Include="Gameplay\Standard\InputThrirdPerson.cs" />
+    <Compile Include="Game\GameHost.cs" />
+    <Compile Include="Game\GameSprite.cs" />
+    <Compile Include="Game\Platformer\GamePlatformHost.cs" />
     <Compile Include="Gen\GeoGen.cs" />
     <Compile Include="Help\IOHelp.cs" />
     <Compile Include="ImageProcessing\ImageProcessor.cs" />

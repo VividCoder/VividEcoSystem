@@ -10,7 +10,7 @@ using Vivid;
 using Vivid.App;
 using Vivid.Scene;
 using Vivid.Tex;
-namespace SpaceEngine.Forms
+namespace Vivid.Forms
 {
 
     

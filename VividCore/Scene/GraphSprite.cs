@@ -6,6 +6,29 @@
       
 
         public static Tex.Tex2D NormalBlank=null;
+       
+        public GraphSprite(int w,int h)
+        {
+
+            CastShadow = false;
+            W = w;
+            H = h;
+            if (NormalBlank == null)
+            {
+                NormalBlank = new Tex.Tex2D("data/tex/normblank.png", false);
+            }
+            NormalMap = NormalBlank;
+           
+
+        }
+
+        public void SetImage(Tex.Tex2D img)
+        {
+
+            ImgFrame = img;
+
+        }
+
 
         public GraphSprite(Tex.Tex2D img,Tex.Tex2D normal, int w = -1, int h = -1)
         {

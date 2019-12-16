@@ -11,7 +11,7 @@ namespace MapEditor
 
         public static string ContentPath = "";
         public static string ProjectPath = "";
-        public static SpaceEngine.Map.Map EditMap = null;
+        public static Vivid.Map.Map EditMap = null;
 
     }
 }

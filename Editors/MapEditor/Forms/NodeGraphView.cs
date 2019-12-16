@@ -9,9 +9,9 @@ namespace MapEditor.Forms
     public class NodeGraphView : Vivid.Resonance.Forms.WindowForm
     {
 
-        public SpaceEngine.Map.Map map = null;
+        public Vivid.Map.Map map = null;
 
-        public void SetMap(SpaceEngine.Map.Map m)
+        public void SetMap(Vivid.Map.Map m)
         {
 
             map = m;

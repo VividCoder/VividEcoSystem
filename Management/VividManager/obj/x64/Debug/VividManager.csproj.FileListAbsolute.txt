@@ -15,7 +15,6 @@ C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\AssimpNet.dll
 C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\SharpFont.dll
 C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\irrKlang.NET4.dll
 C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\zlib.net.dll
-C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\NLua.dll
 C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\CSScriptLibrary.dll
 C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\VividCore.pdb
 C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\OpenTK.pdb
@@ -27,5 +26,4 @@ C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\CSScriptLibrary
 C:\Projects\VividEcoSystem\Management\VividManager\obj\x64\Debug\VividManager.csproj.CopyComplete
 C:\Projects\VividEcoSystem\Management\VividManager\obj\x64\Debug\VividManager.exe
 C:\Projects\VividEcoSystem\Management\VividManager\obj\x64\Debug\VividManager.pdb
-C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\VividManager.exe.CodeAnalysisLog.xml
-C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\VividManager.exe.lastcodeanalysissucceeded
+C:\Projects\VividEcoSystem\Management\VividManager\obj\x64\Debug\VividManager.csprojAssemblyReference.cache
