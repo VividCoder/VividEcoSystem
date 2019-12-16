@@ -538,8 +538,15 @@ namespace MapEditor.Forms
                         {
                             str = "";
                         }
-                        var str_box = new TextBoxForm().Set(5, py, 220, 25, str);
-                        Console.WriteLine("TB==" + str + "!");
+                        var str_box = new TextBoxForm().Set(5, py, 220, 25, str) as TextBoxForm;
+
+                        str_box.Enter = (txt) =>
+                        {
+                            prop.SetValue(Obj, str_box.Text);
+                        };
+
+                        //Console.WriteLine("TB==" + str + "!");
+
                         if (prop.Name.Contains("Path"))
                         {
 

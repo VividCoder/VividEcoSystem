@@ -230,6 +230,8 @@ namespace Vivid.Resonance.Forms
                     case OpenTK.Input.Key.Enter:
                     case OpenTK.Input.Key.KeypadEnter:
                         Enter?.Invoke(Text);
+                        ShowClaret = false;
+                        Active = false;
                         return;
                         break;
 

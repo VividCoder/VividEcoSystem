@@ -129,6 +129,8 @@ namespace SpaceEngine.Forms
                     int vv = 5;
                 }
             }
+            return Graph.PickNode(Graph.Root, x, y);
+
             return null;
 
         }
@@ -144,10 +146,13 @@ namespace SpaceEngine.Forms
         public int LockX, LockY;
         public void Center()
         {
-            UpdateGraph();
-            if (MapFrame == null) return;
-            Graph.X = (MapFrame.IW / 2) - 32;
-            Graph.Y = (MapFrame.IH / 2) - 32;
+            if (Map.Layers.Count > 0)
+            {
+                UpdateGraph();
+                if (MapFrame == null) return;
+                Graph.X = (MapFrame.IW / 2) - 32;
+                Graph.Y = (MapFrame.IH / 2) - 32;
+            }
         }
         public MapViewForm(Map.Map map, bool Shadows = true)
         {

@@ -25,6 +25,14 @@ namespace Vivid.Scene
         }
         public override void Write(System.IO.BinaryWriter w)
         {
+            if(Type == null)
+            {
+                Type = "";
+            }
+            if(SubType == null)
+            {
+                SubType = "";
+            }
             w.Write(X);
             w.Write(Y);
             w.Write(Z);

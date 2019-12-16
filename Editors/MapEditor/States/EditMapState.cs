@@ -43,6 +43,12 @@ namespace MapEditor.States
         public static MapEditForm mapEdit;
         public static TileBrowser tileBrowse = null;
         public static NodeGraphView nodeTree;
+
+        public void Rebuild()
+        {
+
+        }
+
         public override void InitState()
         {
            // GameGlobal.ContentPath = ContentPath;
@@ -218,7 +224,7 @@ namespace MapEditor.States
 
             mapSplit.SetRight(classIn);
 
-            mapSplit.SetSplit(split3.RightDock.W - 150);
+            mapSplit.SetSplit(split3.RightDock.W - 250);
 
 
             SUI = new UI();
@@ -227,20 +233,32 @@ namespace MapEditor.States
 
             var toolBar = new ToolBarForm().Set(0, 0, toolRoot.W, 25) as ToolBarForm;
 
+            var tb_pick = toolBar.AddItem("Pick");
             var tb_paste = toolBar.AddItem("Paste");
             var tb_rect = toolBar.AddItem("Rect");
             var tb_oval = toolBar.AddItem("Oval");
             var tb_fill = toolBar.AddItem("Fill");
             var tb_smartfill = toolBar.AddItem("Smart-Fill");
 
+            tb_pick.Click = () =>
+            {
+
+                mapEdit.Mode = EditMode.Pick;
+                mapEdit.Rebuild();
+
+            };
+
             tb_paste.Click = () =>
             {
                 mapEdit.Mode = EditMode.Paste;
+                mapEdit.Rebuild();
             };
+
 
             tb_fill.Click = () =>
             {
                 mapEdit.Mode = EditMode.Fill;
+                mapEdit.Rebuild();
             };
 
 

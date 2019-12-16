@@ -24,7 +24,7 @@ namespace MapEditor.Forms
 
     public enum EditMode
     {
-        Paste,Fill,SmartFill,Rect,Oval,Erase,Clear
+        Paste,Fill,SmartFill,Rect,Oval,Erase,Clear,Pick
     }
     public class MapEditForm : WindowForm
     {
@@ -47,6 +47,23 @@ namespace MapEditor.Forms
         public int EditZ = 0;
         public int mX, mY;
         public Vivid.Scene.GraphNode ActiveNode = null;
+
+        public void Rebuild()
+        {
+            switch (Mode)
+            {
+                case EditMode.Paste:
+                    cLab.Text = "Mode:Paste";
+                    break;
+                case EditMode.Pick:
+                    cLab.Text = "Mode:Pick";
+                    break;
+                case EditMode.Fill:
+                    cLab.Text = "Mode:Fill";
+                    break;
+            }
+        }
+
         public void LoadMap(string file)
         {
 
@@ -103,7 +120,7 @@ namespace MapEditor.Forms
             
 
         }
-
+        LabelForm cLab;
         TextBoxForm lay;
         MoveNodeForm moveForm;
 
@@ -149,7 +166,7 @@ namespace MapEditor.Forms
             //          View.Map.AddLight(l2);
             //        View.Map.AddLight(l3);
 
-            LabelForm cLab = null;
+            cLab = null;
             ; var TView = View;
 
             float r = 0;
@@ -191,6 +208,7 @@ namespace MapEditor.Forms
                 cLab = new LabelForm().Set(2, -23, 30, 20, "Mode:Paste") as LabelForm;
 
                 View.Add(cLab);
+                Rebuild();
             }
 
             updateModeLabel();
@@ -233,52 +251,56 @@ namespace MapEditor.Forms
                 Console.WriteLine("MX:" + mX + " MY:" + mY);
                 AppInfo.RW = W;
                 AppInfo.RH = H;
-                var pn = TView.PickObj(mX, mY);
-                if (pn != null)
+                if (Mode == EditMode.Pick)
                 {
-                    if(pn is Vivid.Scene.GraphMarker)
+                    var pn = TView.PickObj(mX, mY);
+                    if (pn != null)
                     {
-                        ActiveNode = pn;
-                        TView.ActiveNode = pn;
-                        TView.SetActiveSprite();
-                        moveForm.SetNode(TView.ActiveNode);
-                        moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y, 64, 64);
-                  //      Console.WriteLine("Set PN");
-                        Selected?.Invoke(pn);
-                  
-                    } else
-                    if (pn is Vivid.Scene.GraphLight)
-                    {
-                        ActiveNode = pn;
-                        TView.ActiveNode = pn;
-                        TView.SetActiveSprite();
-                        moveForm.SetNode(TView.ActiveNode);
-                        moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y, 64, 64);
-                     //   Console.WriteLine("Set PN");
-                        Selected?.Invoke(pn);
-                      
+                        if (pn is Vivid.Scene.GraphMarker)
+                        {
+                            ActiveNode = pn;
+                            TView.ActiveNode = pn;
+                            TView.SetActiveSprite();
+                            moveForm.SetNode(TView.ActiveNode);
+                            moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y, 64, 64);
+                            //      Console.WriteLine("Set PN");
+                            Selected?.Invoke(pn);
+
+                        }
+                        else
+                        if (pn is Vivid.Scene.GraphLight)
+                        {
+                            ActiveNode = pn;
+                            TView.ActiveNode = pn;
+                            TView.SetActiveSprite();
+                            moveForm.SetNode(TView.ActiveNode);
+                            moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y, 64, 64);
+                            //   Console.WriteLine("Set PN");
+                            Selected?.Invoke(pn);
+
+                        }
+                        else
+                        {
+                            Selected?.Invoke(pn);
+                            //   Console.WriteLine("nope");
+                        }
+
                     }
                     else
                     {
-                        Selected?.Invoke(pn);
-                     //   Console.WriteLine("nope");
+                        Console.WriteLine("No obj");
                     }
 
                 }
-                else
-                {
-                    Console.WriteLine("No obj");
-                }
+                    MouseIn = true;
+                    var hz = ONode; // TView.Graph.Pick(lx, ly);
 
-                MouseIn = true;
-                var hz = ONode; // TView.Graph.Pick(lx, ly);
+                    if (hz != null)
+                    {
 
-                if (hz != null)
-                {
+                    }
 
-                }
-
-
+                
 
             };
             TView.MouseWheelMoved = (z) =>
@@ -342,6 +364,9 @@ namespace MapEditor.Forms
                                     break;
                                 case EditMode.Fill:
                                     TView.Map.Layers[EditZ].Fill(TileBrowser.ActiveTile);
+                                    break;
+                                case EditMode.Pick:
+
                                     break;
                             }
                         }
