@@ -26,5 +26,3 @@ C:\Projects\VividEcoSystem\Editors\MapEditor\obj\x64\Debug\MapEditor.csprojAssem
 C:\Projects\VividEcoSystem\Editors\MapEditor\obj\x64\Debug\MapEditor.csproj.CopyComplete
 C:\Projects\VividEcoSystem\Editors\MapEditor\obj\x64\Debug\MapEditor.exe
 C:\Projects\VividEcoSystem\Editors\MapEditor\obj\x64\Debug\MapEditor.pdb
-C:\Projects\VividEcoSystem\Editors\MapEditor\bin\x64\Debug\MapEditor.exe.CodeAnalysisLog.xml
-C:\Projects\VividEcoSystem\Editors\MapEditor\bin\x64\Debug\MapEditor.exe.lastcodeanalysissucceeded

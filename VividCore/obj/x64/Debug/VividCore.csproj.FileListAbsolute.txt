@@ -22,3 +22,4 @@ C:\Projects\VividEcoSystem\VividCore\bin\x64\Debug\SharpFont.xml
 C:\Projects\VividEcoSystem\VividCore\obj\x64\Debug\VividCore.csproj.CopyComplete
 C:\Projects\VividEcoSystem\VividCore\obj\x64\Debug\VividCore.dll
 C:\Projects\VividEcoSystem\VividCore\obj\x64\Debug\VividCore.pdb
+C:\Projects\VividEcoSystem\VividCore\obj\x64\Debug\VividCore.csprojAssemblyReference.cache

@@ -187,9 +187,9 @@ namespace Vivid.App
             VSync = VSyncMode.Adaptive;
             Font2.OrchidFont.Init();
             Physics.PhysicsManager.InitSDK();
-            Lua state = new Lua();
-            object res = state.DoString("return 1+1")[0];
-            Console.WriteLine("Returned Version:" + res);
+            //Lua state = new Lua();
+           // object res = state.DoString("return 1+1")[0];
+           // Console.WriteLine("Returned Version:" + res);
 
         }
 
