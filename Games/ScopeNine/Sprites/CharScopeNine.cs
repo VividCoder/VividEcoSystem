@@ -22,10 +22,13 @@ namespace ScopeNine.Sprites
    public class CharScopeNine : Vivid.Game.GameSprite
     {
 
-        public CharScopeNine() : base(64,64)
+        public CharScopeNine() : base(86,86)
         {
 
             SetImage(new Tex2D("Corona/Entity/Chars/ScopeNine/Idle1.png",true));
+            CastShadow = true;
+            Z = 1;
+            ShadowPlane = 1;
 
         }
 

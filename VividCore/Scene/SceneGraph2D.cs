@@ -249,7 +249,7 @@ namespace Vivid.Scene
                 xc = node.XC;
                 yc = node.YC;
 
-
+               
              
                 Render.Image(node.DrawP, node.ImgFrame,node.NormalMap ,node.ShadowPlane);
             

@@ -73,6 +73,15 @@ namespace Vivid.Game.Platformer
             Graph = CurMap.UpdateGraph(64, 64);
             Graph.X = (AppInfo.W / 2)-32;
             Graph.Y = (AppInfo.H / 2)-32;
+            float mz, maz;
+            mz = 1000;
+            maz = -1000;
+            foreach(var n in Graph.Root.Nodes)
+            {
+                if (n.Z < mz) mz = n.Z;
+                if (n.Z > maz) maz = n.Z;
+            }
+            Console.WriteLine("MinZ:" + mz + " MaxZ:" + maz);
 
 
         }
