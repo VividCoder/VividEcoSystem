@@ -74,6 +74,7 @@
     <Compile Include="ScopeNineApp.cs" />
     <Compile Include="Sprites\CharScopeNine.cs" />
     <Compile Include="State\InGamePlatform.cs" />
+    <Compile Include="State\ScopeNineMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

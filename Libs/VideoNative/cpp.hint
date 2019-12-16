@@ -1,0 +1,2 @@
+#define VIDEONATIVE_API __declspec(dllexport)
+#define VIDEONATIVE_API __declspec(dllimport)

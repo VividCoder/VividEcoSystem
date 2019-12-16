@@ -14,3 +14,7 @@ A common "Game" set up for new games, with the tools/ide simply providing the ov
 - Procedural missions. 
 
 - 5Y5TEM MAIFUNCTI0N
+
+
+-End of the game, a big reveal is scope nine is actually a virtual A.I program. The game ends with a new title
+screen "Virtual One" - And the single ui elemnt "End Game"
