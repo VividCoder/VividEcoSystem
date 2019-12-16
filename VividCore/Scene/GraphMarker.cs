@@ -8,9 +8,21 @@ namespace Vivid.Scene
 {
     public class GraphMarker : GraphNode
     {
-        public string Type = "";
-        public string Name = "";
-        public int Num = 0;
+        public string Type
+        {
+            get;
+            set;
+        }
+        public string SubType
+        {
+            get;
+            set;
+        }
+        public int Index
+        {
+            get;
+            set;
+        }
         public override void Write(System.IO.BinaryWriter w)
         {
             w.Write(X);
@@ -18,8 +30,8 @@ namespace Vivid.Scene
             w.Write(Z);
             w.Write(Rot);
             w.Write(Type);
-            w.Write(Name);
-            w.Write(Num);
+            w.Write(SubType);
+            w.Write(Index);
 
 
         }
@@ -30,8 +42,8 @@ namespace Vivid.Scene
             Z = r.ReadSingle();
             Rot = r.ReadSingle();
             Type = r.ReadString();
-            Name = r.ReadString();
-            Num = r.ReadInt32();
+            SubType = r.ReadString();
+            Index = r.ReadInt32();
         }
     }
 }

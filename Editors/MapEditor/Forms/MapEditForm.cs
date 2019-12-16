@@ -19,6 +19,9 @@ using SpaceEngine.Map.TileSet;
 using System.IO;
 namespace MapEditor.Forms
 {
+
+    public delegate void SelectNode(Vivid.Scene.GraphNode node);
+
     public enum EditMode
     {
         Paste,Fill,SmartFill,Rect,Oval,Erase,Clear
@@ -29,7 +32,7 @@ namespace MapEditor.Forms
         EditMode lMode = EditMode.Paste;
         public TabForm Tab = null;
         public MapViewForm View;
- 
+        public SelectNode Selected = null;
         public List<MapLayer> Layers = new List<MapLayer>();
         public MapLayer CurLayer;
         public Vivid.Scene.GraphNode ONode;
@@ -103,6 +106,9 @@ namespace MapEditor.Forms
 
         TextBoxForm lay;
         MoveNodeForm moveForm;
+
+
+
         public MapEditForm()
 
 
@@ -237,9 +243,10 @@ namespace MapEditor.Forms
                         TView.SetActiveSprite();
                         moveForm.SetNode(TView.ActiveNode);
                         moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y, 64, 64);
-                        Console.WriteLine("Set PN");
-
-                    }
+                  //      Console.WriteLine("Set PN");
+                        Selected?.Invoke(pn);
+                  
+                    } else
                     if (pn is Vivid.Scene.GraphLight)
                     {
                         ActiveNode = pn;
@@ -247,11 +254,14 @@ namespace MapEditor.Forms
                         TView.SetActiveSprite();
                         moveForm.SetNode(TView.ActiveNode);
                         moveForm.Set((int)TView.ActiveNodeSprite.DrawP[0].X, (int)TView.ActiveNodeSprite.DrawP[0].Y, 64, 64);
-                        Console.WriteLine("Set PN");
+                     //   Console.WriteLine("Set PN");
+                        Selected?.Invoke(pn);
+                      
                     }
                     else
                     {
-                        Console.WriteLine("nope");
+                        Selected?.Invoke(pn);
+                     //   Console.WriteLine("nope");
                     }
 
                 }

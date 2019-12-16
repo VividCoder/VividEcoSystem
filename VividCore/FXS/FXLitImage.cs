@@ -153,10 +153,12 @@ namespace Vivid.FXS
             SetInt("sShadow", isShadowed ? 1 : 0);
           //  SetVec3("lPos", new OpenTK.Vector3(res.X, res.Y, 0));
             SetVec3("LightPos", lP);
+            SetVec3("RealPos", new OpenTK.Vector3(res.X,sh- res.Y, 1.0f));
             SetVec4("LightColor", new OpenTK.Vector4(Light.Diffuse, 1.0f));
             SetVec4("AmbientColor", Ambient);
             SetVec3("Falloff", FallOff);
             SetVec2("Resolution", new OpenTK.Vector2(sw, sh));
+            SetFloat("LightRange", Light.Range);
 
                
             //SetFloat("lRange", Light.Range * Graph.Z);

@@ -13,6 +13,7 @@ void main(){
 
       vec4 tc = texture2D(tDiffuse,UV);
 
+  if(tc.a < 0.1) discard;
 
     color  = tc;
 

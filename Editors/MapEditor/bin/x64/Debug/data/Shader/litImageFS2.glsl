@@ -14,9 +14,11 @@ uniform int sShadow;
 
 uniform vec2 Resolution;
 uniform vec3 LightPos;
+uniform vec3 RealPos;
 uniform vec4 LightColor;
 uniform vec4 AmbientColor;
 uniform vec3 Falloff;
+uniform float LightRange;
 uniform float lZ;
 
 
@@ -28,6 +30,16 @@ void main(){
     vec3 NormalMap = texture2D(tNormal,UV).rgb;
 
     //NormalMap.g = 1.0 - NormalMap.g;
+
+    float xd = gl_FragCoord.x - RealPos.x;
+    float yd = gl_FragCoord.y - RealPos.y;
+
+    float mag = sqrt( (xd*xd)+(yd*yd) );
+
+    mag = mag / LightRange;
+
+    mag = 1.0-mag;
+    if(mag<0.0) mag=0.0;
 
     vec3 LightDir = vec3(LightPos.xy - (gl_FragCoord.xy / Resolution.xy), LightPos.z);
 	
@@ -60,7 +72,7 @@ void main(){
     }
 
 
-    color =  vec4(FinalColor, DiffuseColor.a);
+    color =  vec4(FinalColor*mag, DiffuseColor.a);
 
 
     //color  = tc;

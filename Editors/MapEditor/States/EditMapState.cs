@@ -193,12 +193,33 @@ namespace MapEditor.States
 
 
             //split3.SetLeft(nodeBrowse);
+            var mapSplit = new VerticalSplitterForm().Set(0, 0, split3.RightDock.W, split3.RightDock.H) as VerticalSplitterForm;
+
+            var classIn = new InspectorForm().Set(0, 0, mapSplit.RightDock.W, mapSplit.RightDock.H) as InspectorForm;
 
             mapEdit = new MapEditForm().Set(0, 0, split3.RightDock.W, split3.RightDock.H) as MapEditForm;
 
+            mapEdit.Selected = (node) =>
+            {
+                classIn.SetObj(node);
+         
+         //       if (node == null) return;
+                //Console.WriteLine("Selected:" + node.Name);
+
+
+            };
+
             nodeTree.SetMap(GameGlobal.EditMap);
 
-            split3.SetRight(mapEdit);
+            split3.SetRight(mapSplit);
+
+            mapSplit.SetLeft(mapEdit);
+
+
+            mapSplit.SetRight(classIn);
+
+            mapSplit.SetSplit(split3.RightDock.W - 150);
+
 
             SUI = new UI();
             SUI.Root = split1;

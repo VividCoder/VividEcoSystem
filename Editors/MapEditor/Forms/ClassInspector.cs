@@ -682,7 +682,14 @@ namespace MapEditor.Forms
                             {
                             }
                             prop.SetValue(Obj, vec3);
-                            Obj.Changed();
+                            try
+                            {
+                                Obj.Changed();
+                            }
+                            catch
+                            {
+
+                            }
                         };
 
                         y_box.Enter = (val) =>
@@ -695,7 +702,14 @@ namespace MapEditor.Forms
                             {
                             }
                             prop.SetValue(Obj, vec3);
-                            Obj.Changed();
+                            try
+                            {
+                                Obj.Changed();
+                            }
+                            catch 
+                            {
+
+                            }
                         };
 
                         z_box.Enter = (val) =>
@@ -708,7 +722,14 @@ namespace MapEditor.Forms
                             {
                             }
                             prop.SetValue(Obj, vec3);
-                            Obj.Changed();
+                            try
+                            {
+                                Obj.Changed();
+                            }
+                            catch
+                            {
+
+                            }
                         };
 
                         Body.Add(x_lab, y_lab, z_lab);

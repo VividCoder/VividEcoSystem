@@ -142,6 +142,13 @@ namespace SpaceEngine.Forms
 
         public bool LockCam = false;
         public int LockX, LockY;
+        public void Center()
+        {
+            UpdateGraph();
+            if (MapFrame == null) return;
+            Graph.X = (MapFrame.IW / 2) - 32;
+            Graph.Y = (MapFrame.IH / 2) - 32;
+        }
         public MapViewForm(Map.Map map, bool Shadows = true)
         {
             shadows = Shadows;
@@ -171,8 +178,9 @@ namespace SpaceEngine.Forms
             AfterSet = () =>
             {
 
+                if (W < 5 || H < 5) return;
                 MapFrame = new Vivid.FrameBuffer.FrameBufferColor (W, H);
-               
+                Center();
                 Changed = true;
             };
 

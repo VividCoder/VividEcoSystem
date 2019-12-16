@@ -42,9 +42,10 @@ namespace MapEditor.Forms
 
            // var l1 = new Vivid.Scene.GraphLight();
 
-
+             
 
             TView = new MapViewForm(TileMap,false);
+            TView.Center();
             Add(TView);
             AfterSet = () =>
             {

@@ -91,7 +91,7 @@ namespace Vivid.Resonance
             }
             set
             {
-                System.Console.WriteLine("Text:" + this.GetType().Name + ":" + value);
+              //  System.Console.WriteLine("Text:" + this.GetType().Name + ":" + value);
                 _text = value;
                 
             }
