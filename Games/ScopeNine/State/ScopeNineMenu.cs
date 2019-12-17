@@ -17,10 +17,11 @@ namespace ScopeNine.State
 {
     public class ScopeNineMenu : VividState
     {
-
+        Vivid.PostProcess.Processes.PPVirtualGrid FXGrid;
         public override void InitState()
         {
             SUI = new UI();
+            FXGrid = new Vivid.PostProcess.Processes.PPVirtualGrid();
 
             var vid = new VideoForm().Set(0, 0, AppInfo.W, AppInfo.H) as VideoForm;
 
@@ -92,6 +93,7 @@ namespace ScopeNine.State
         {
             base.DrawState();
             SUI.Render();
+            FXGrid.Process(null);
         }
 
     }

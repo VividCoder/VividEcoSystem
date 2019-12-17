@@ -25,3 +25,7 @@ the stability. This may lead to something else.
 -Possible Non-Lethal style of gameplay.
 
 - An idea to keep a sense of refrain , yet constant moments that completely defy this.
+
+-The VR Grid overlay becomes a full VR system at the end of the game.
+
+- A VR Grid that renders around the map rather than a straight texture.

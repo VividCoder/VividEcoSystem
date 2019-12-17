@@ -18,11 +18,12 @@ namespace ScopeNine.State
     public class ScopeNineIntro : VividState
     {
 
+        Vivid.PostProcess.Processes.PPVirtualGrid FXGrid;
         public override void InitState()
         {
             base.InitState();
 
-         
+            FXGrid = new Vivid.PostProcess.Processes.PPVirtualGrid();
 
             SUI = new UI();
 
@@ -60,6 +61,8 @@ namespace ScopeNine.State
 
             base.DrawState();
             SUI.Render();
+            FXGrid.Process(null);
+
         }
 
     }

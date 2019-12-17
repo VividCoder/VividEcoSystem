@@ -53,7 +53,7 @@ namespace Vivid.PostProcess.Processes
             SetTex("tDiffuse", 0);
             SetMat("proj", OpenTK.Matrix4.CreateOrthographicOffCenter(0, Vivid.App.AppInfo.RW, Vivid.App.AppInfo.RH, 0, -1, 1000));
             SetFloat("xP", xp);
-            xp = xp - 0.03f;
+            xp = xp - 0.01f;
             if (xp < 0)
             {
                 xp = 1.5f;

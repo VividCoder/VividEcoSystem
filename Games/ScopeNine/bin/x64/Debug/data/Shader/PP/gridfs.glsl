@@ -43,6 +43,8 @@ void main(){
   tc.b= 0;
   tc.g = tc.g *0.2;
 
+  tc.g = xd;
+
 
 //tc.a = 0.4;
    // tc.a = xd;
