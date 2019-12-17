@@ -337,12 +337,7 @@ extern "C" {
 				ALvoid* data = malloc(pFrame->nb_samples);
 				char* datac = (char*)data;
 
-				for (int cc = 0; cc < pFrame->nb_samples; cc++) {
-
-
-
-				}
-
+			
 
 				if (av_sample_fmt_is_planar(pCodecContext->sample_fmt) == 1) {
 					// This means that the data of each channel is in its own buffer.
@@ -553,7 +548,7 @@ extern "C" {
 				//return 0;
 
 				struct SwsContext* resize;
-				resize = sws_getContext(pFrame->width, pFrame->height, (AVPixelFormat)pFrame->format, pFrame->width, pFrame->height, AVPixelFormat::AV_PIX_FMT_RGB24, SWS_BILINEAR, NULL, NULL, NULL);
+				resize = sws_getContext(pFrame->width, pFrame->height, (AVPixelFormat)pFrame->format, pFrame->width, pFrame->height, AVPixelFormat::AV_PIX_FMT_RGB24, SWS_BITEXACT, NULL, NULL, NULL);
 				//	av_free(resize);
 				//	av_freep(resize);
 				//	av_free_packet(pPacket);
@@ -731,6 +726,19 @@ extern "C" {
 #define MAX_AUDIO_FRAME_SIZE 192000
 
 	bool defSDL = false;
+
+	VIDEONATIVE_API int stopAudio(videoPB * v) {
+
+		alSourceStop(v->audioSource);
+		alSourcePause(v->audioSource);
+		
+		node1 = NULL;
+		
+		//v->audioSource
+		return 1;
+
+
+	}
 
 	VIDEONATIVE_API int decodeNextFrame(videoPB* vid) {
 
@@ -917,6 +925,24 @@ extern "C" {
 	}
 
 	int init_done = 0;
+
+	VIDEONATIVE_API void stopVideo(videoPB* v)
+	{
+
+		avcodec_free_context(&v->context);
+		avcodec_free_context(&v->acontext);
+		av_packet_unref(v->packet);
+		av_packet_unref(v->apacket);
+		avformat_flush(v->pFormatContext);
+		avformat_close_input(&v->pFormatContext);
+		avformat_free_context(v->pFormatContext);
+
+		//sws_freeContext(v->)
+
+
+
+
+	}
 
 	VIDEONATIVE_API videoPB* initVideoNative(const char* file) {
 

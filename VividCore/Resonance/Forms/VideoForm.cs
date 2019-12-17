@@ -20,20 +20,29 @@ namespace Vivid.Resonance.Forms
 
             Draw = () =>
             {
+                if (Paused) return;
                 if (Frm == null) return;
-                DrawForm(CurVid.GetCurrentImage(), new OpenTK.Vector4(1, 1, 1, 1));
+                DrawForm(CurVid.GetCurrentImage(), new OpenTK.Vector4(1*UI.CurUI.FadeAlpha, 1*UI.CurUI.FadeAlpha, 1*UI.CurUI.FadeAlpha, 1*UI.CurUI.FadeAlpha));
             };
 
             Update = () =>
             {
                 // CurVid.DecodeNextFrame();
-
+                if (Paused) return;
                 var frame = CurVid.GetCurrentFrame();
 
                 Frm = frame;
             };
         }
-
+        public void StopAudio()
+        {
+            CurVid.StopAudio();
+        }
+        public void Stop()
+        {
+            CurVid.Stop();
+            Paused = true;
+        }
         public void Pause()
         {
             if (Paused) return;

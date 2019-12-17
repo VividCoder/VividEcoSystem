@@ -54,7 +54,7 @@ namespace Vivid.Video
 
         public VideoPlayer(string path)
         {
-            Profiler.Profile.BeginBlock("InitVideo");
+           // Profiler.Profile.BeginBlock("InitVideo");
 
             if (AudioUp == false)
             {
@@ -71,15 +71,27 @@ namespace Vivid.Video
             var decode_thread = new Thread(new ThreadStart(Thr_Decode));
             decode_thread.Start();
             CurThr = decode_thread;
-            CurThr.Priority = ThreadPriority.AboveNormal;
-            Profiler.Profile.EndBlock("InitVideo");
+            CurThr.Priority = ThreadPriority.Normal;
+            //Profiler.Profile.EndBlock("InitVideo");
         }
 
         ~VideoPlayer()
         {
             CurThr.Abort();
         }
-
+        public void StopAudio()
+        {
+            CurThr.Abort();
+            int res = VideoIn.stopAudio(vid);
+         //   VideoIn.stopVideo(vid);
+        }
+        public void Stop()
+        {
+            CurThr.Abort();
+            Paused = true;
+            VideoIn.stopVideo(vid);
+            int res = VideoIn.stopAudio(vid);
+        }
         public void Pause()
         {
             Paused = true;
@@ -116,28 +128,59 @@ namespace Vivid.Video
                         AUDIOCLOCK = ((double)(timed) / 1000.0);
                     }
 
-                    FrameMutex.WaitOne();
+                 
 
                     while (true)
                     {
-                        if (Frames.Count == 0) break;
-                        var frm = Frames.Peek();
+                     //   FrameMutex.WaitOne();
+                        if (Frames.Count == 0)
+                        {
+                         //  FrameMutex.ReleaseMutex();
+                            break;
+                        }
+                        FrameMutex.WaitOne();
+                        VideoFrame frm = null;
+                        while (true)
+                        {
+                            frm = Frames.Peek();
+                            if (frm != null) break;
+                        }
+
+                        FrameMutex.ReleaseMutex();
+
                         if (frm.DPTS < AUDIOCLOCK)
                         {
+                            FrameMutex.WaitOne();
                             Frames.Dequeue();
+                            FrameMutex.ReleaseMutex();
                         }
                         else
                         {
+                        //    FrameMutex.ReleaseMutex();
                             break;
                         }
+                      //  FrameMutex.ReleaseMutex();
                     }
-                    FrameMutex.ReleaseMutex();
+        
                     if (Frames.Count > 0)
                     {
-                        double ft = Frames.Peek().DPTS;
+                        FrameMutex.WaitOne();
 
+                        VideoFrame frm = null;
+                        while (true)
+                        {
+                          frm =  Frames.Peek();
+                            if (frm != null) break;
+                        }
+
+
+                        double ft = frm.DPTS;
+
+                        FrameMutex.ReleaseMutex();
                         TimeDelta = ft - AUDIOCLOCK;
                     }
+                    //FrameMutex.ReleaseMutex();
+                    // FrameMutex.WaitOne();
 
                     FrameMutex.WaitOne();
                     if (Frames.Count < 8)
@@ -145,6 +188,7 @@ namespace Vivid.Video
                         DecodeNextFrame();
                     }
                     FrameMutex.ReleaseMutex();
+                   // FrameMutex.ReleaseMutex();
                 }
                 //  GC.Collect();
                 //  T//hread.Sleep(2);
@@ -158,14 +202,14 @@ namespace Vivid.Video
 
         public void DecodeNextFrame()
         {
-            Profiler.Profile.BeginBlock("DecodeFrame");
+         //   Profiler.Profile.BeginBlock("DecodeFrame");
             VideoIn.decodeNextFrame(vid);
 
             int fw = VideoIn.getFrameWidth(vid);
             int fh = VideoIn.getFrameHeight(vid);
             if (fw < 0 || fw > 10000)
             {
-                Profiler.Profile.EndBlock("DecodeFrame");
+              //  Profiler.Profile.EndBlock("DecodeFrame");
                 return;
             }
 
@@ -201,7 +245,7 @@ namespace Vivid.Video
             Frames.Enqueue(frame);
             FrameMutex.ReleaseMutex();
 
-            Profiler.Profile.EndBlock("DecodeFrame");
+      //      Profiler.Profile.EndBlock("DecodeFrame");
         }
 
         public double GetClock()
@@ -222,24 +266,24 @@ namespace Vivid.Video
         public Texture.Texture2D GetCurrentImage()
         {
             int used = 0;
-            Profiler.Profile.BeginBlock("GetCurrentImage");
+        //    Profiler.Profile.BeginBlock("GetCurrentImage");
 
             if (CurrentFrame == null)
             {
-                Profiler.Profile.EndBlock("GetCurrentImage");
+      //          Profiler.Profile.EndBlock("GetCurrentImage");
                 return null;
             }
             if (CurrentTex == null) CurrentTex = new Texture.Texture2D(Width, Height, new byte[Width * Height * 3], false);
 
             if (CurrentFrame == UpFrame)
             {
-                Profiler.Profile.EndBlock("GetCurrentImage");
+          //      Profiler.Profile.EndBlock("GetCurrentImage");
                 return CurrentTex;
             }
 
             CurrentTex.LoadSub(CurrentFrame.Data);
             UpFrame = CurrentFrame;
-            Profiler.Profile.EndBlock("GetCurrentImage");
+           // Profiler.Profile.EndBlock("GetCurrentImage");
             return CurrentTex;
         }
 
@@ -247,7 +291,7 @@ namespace Vivid.Video
 
         public VideoFrame GetCurrentFrame()
         {
-            Profiler.Profile.BeginBlock("GetFrame");
+            //Profiler.Profile.BeginBlock("GetFrame");
 
             //  GC.Collect();
 
@@ -261,7 +305,7 @@ namespace Vivid.Video
             if (Paused)
             {
                 LastTick = ctick;
-                Profiler.Profile.EndBlock("GetFrame");
+              //  Profiler.Profile.EndBlock("GetFrame");
                 return CurrentFrame;
             }
 
@@ -290,7 +334,7 @@ namespace Vivid.Video
             }
             else
             {
-                Profiler.Profile.EndBlock("GetFrame");
+                //Profiler.Profile.EndBlock("GetFrame");
                 return CurrentFrame;
             }
 
@@ -317,12 +361,12 @@ namespace Vivid.Video
                     //CLOCK = CLOCK += dd;
                     //CLOCK = CLOCK -= dd;
                 }
-                Profiler.Profile.EndBlock("GetFrame");
+                //Profiler.Profile.EndBlock("GetFrame");
                 return CurrentFrame;
             }
             if (Frames.Count == 0)
             {
-                Profiler.Profile.EndBlock("GetFrame");
+            //    Profiler.Profile.EndBlock("GetFrame");
                 return null;
             }
             if (CurrentFrame == null)
@@ -331,12 +375,18 @@ namespace Vivid.Video
                 CurrentFrame = Frames.Dequeue();
                 FrameMutex.ReleaseMutex();
             }
-            Profiler.Profile.EndBlock("GetFrame");
+            //Profiler.Profile.EndBlock("GetFrame");
             return CurrentFrame;
         }
 
         public class VideoIn
         {
+            [DllImport("VideoNative.dll")]
+            public static extern int stopVideo(IntPtr vid);
+
+            [DllImport("VideoNative.dll")]
+            public static extern int stopAudio(IntPtr vid);
+
             [DllImport("VideoNative.dll")]
             public static extern int audioHasBegun();
 

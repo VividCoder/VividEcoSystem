@@ -124,11 +124,14 @@ namespace Vivid.App
         public VividApp()
         {
         }
-
+        static bool StateChanged = true;
         public static void PushState(VividState state, bool start = true)
         {
             States.Push(state);
-            VividApp.Link.StateInited = false;
+            state.InitState();           
+            // VividApp.Link.StateInited = false;
+
+            StateChanged = true;
         }
 
         public static void PopState()
@@ -317,6 +320,7 @@ namespace Vivid.App
             if (InitState != null)
             {
                 PushState(InitState);
+               
                 InitState = null;
             }
 
@@ -329,15 +333,10 @@ namespace Vivid.App
             if (States.Count > 0)
             {
                 VividState us = States.Peek();
-                if (StateInited == false)
-                {
-                    us.InitState();
-                    us.StartState();
-                    StateInited = true;
-                    GL.Viewport(0, 0, AppInfo.W, AppInfo.H);
-                    GL.Disable(EnableCap.ScissorTest);
-                }
+              
+                us = States.Peek();
                 us.UpdateState();
+
                 us.InternalUpdate();
             }
         }
@@ -372,14 +371,7 @@ namespace Vivid.App
             if (States.Count > 0)
             {
                 VividState rs = States.Peek();
-                if (StateInited == false)
-                {
-                    rs.InitState();
-                    rs.StartState();
-                    StateInited = true;
-                    GL.Viewport(0, 0, AppInfo.W, AppInfo.H);
-                    GL.Disable(EnableCap.ScissorTest);
-                }
+           
                 rs.DrawState();
             }
 

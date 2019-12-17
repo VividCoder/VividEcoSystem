@@ -17,6 +17,8 @@ namespace Vivid.Resonance
         public static Font.Font2D Font = null;
         public static int MX, MY, MXD, MYD;
         public static UIForm TopForm = null;
+        public bool FadeUI = false;
+        public float FadeAlpha = 1.0f;
         public int clicks = 0;
         public bool FirstMouse = true;
         //public Logics Graphics = new Logics();
@@ -105,7 +107,14 @@ namespace Vivid.Resonance
         float MZD, MZ;
         public void Update()
         {
-
+            if (FadeUI)
+            {
+                FadeAlpha = FadeAlpha * 0.96f;
+            }
+            else
+            {
+                FadeAlpha+= (1.0f - FadeAlpha) * 0.02f;
+            }
             if (DragObj != null)
             {
                 DragObj.X = MX - 5;
@@ -200,7 +209,7 @@ namespace Vivid.Resonance
 
             //GL.Viewport(0, 0, App.AppInfo.W, App.AppInfo.H);
             Vivid.Draw.IntelliDraw.Draw_Z = 0.001f;
-
+            Vivid.Draw.IntelliDraw.BeginDraw(true);
             foreach (var form in list)
             {
 
@@ -219,12 +228,12 @@ namespace Vivid.Resonance
 
 
                 //                form.PreDraw?.Invoke();
-                Vivid.Draw.IntelliDraw.BeginDraw(true);
+              
                 form.Draw?.Invoke();
-                Vivid.Draw.IntelliDraw.EndDraw();
+
 
             }
-
+            Vivid.Draw.IntelliDraw.EndDraw();
             //            Vivid.Draw.IntelliDraw.EndDraw();
 
         }
