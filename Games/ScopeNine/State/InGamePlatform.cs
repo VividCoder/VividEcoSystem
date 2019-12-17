@@ -18,14 +18,14 @@ namespace ScopeNine.State
     public class InGamePlatform : VividState
     {
 
-        Vivid.Game.Platformer.GamePlatformHost GameHost;
+       ScopeNine.Hosts.ScopeNinePlatformer  GameHost;
 
         public InGamePlatform()
         {
 
-            GameHost = new Vivid.Game.Platformer.GamePlatformHost();
-
-            GameHost.SetMap("Corona/Map/test1");
+            GameHost = new Hosts.ScopeNinePlatformer();
+               
+           GameHost.SetMap("Corona/Map/test3");
 
             GameHost.SetMusic("Corona/Song/GameLevel1.mp3");
 
@@ -38,6 +38,7 @@ namespace ScopeNine.State
             Player.X = marks[0].X;
             Player.Y = marks[0].Y;
 
+            GameHost.Init();
 
 
         }
@@ -57,7 +58,7 @@ namespace ScopeNine.State
         {
             base.DrawState();
 
-            GameHost.RenderMap();
+            GameHost.Render();
 
         }
 

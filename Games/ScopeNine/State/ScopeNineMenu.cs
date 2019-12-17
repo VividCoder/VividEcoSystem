@@ -44,6 +44,14 @@ namespace ScopeNine.State
 
             var powerDown = Vivid.Audio.Songs.LoadSound("Corona/Sound/Misc/powerdown2.mp3");
 
+            newGame.Click = (b) =>
+            {
+
+                vid.Stop();
+                VividApp.PushState(new InGamePlatform());
+
+            };
+
             exit.Click = (b) =>
             {
 

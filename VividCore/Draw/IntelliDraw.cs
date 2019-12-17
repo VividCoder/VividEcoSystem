@@ -162,7 +162,7 @@ namespace Vivid.Draw
             //  GL.Enable(EnableCap.Blend);
             GL.Disable(EnableCap.CullFace);
 
-            //GL.Viewport(0, 0, Vivid.App.AppInfo.W, Vivid.App.AppInfo.H);
+            GL.Viewport(0, 0, Vivid.App.AppInfo.W, Vivid.App.AppInfo.H);
 
             // DrawFX.Bind();
            

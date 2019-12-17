@@ -105,9 +105,34 @@ namespace Vivid.Draw
             //img.Unbind(0);
         }
 
-        public static void Image(int x, int y, int w, int h, Tex2D tex)
+        static Tex2D NormBlank = null;
+        public static void Image(int x, int y, int w, int h, Tex2D tex,Tex2D norm=null)
         {
-            tex.Bind(0);
+            if(norm == null)
+            {
+                if(NormBlank == null)
+                {
+                    NormBlank = new Tex2D("data/ui/normblank.png", false);
+                }
+                norm = NormBlank;
+            }
+            
+            float[] cx = new float[4];
+            float[] cy = new float[4];
+
+            cx[0] = x;
+            cy[0] = y;
+            cx[1] = x + w;
+            cy[1] = y;
+            cx[2] = x + w;
+            cy[2] = y + h;
+            cx[3] = x;
+            cy[3] = y + h;
+
+            Draw.IntelliDraw.DrawImg2D(cx, cy, tex, norm, new Vector4(1, 1, 1, 1), 1.0f) ;
+
+
+            //tex.Bind(0);
 
             //'  Col = new Vector4(1, 1, 1, 0.5f);
             /*
@@ -127,7 +152,7 @@ namespace Vivid.Draw
               GL.End();
 
       */
-            tex.Unbind(0);
+           // tex.Unbind(0);
         }
 
         public static void Rect(int x, int y, int w, int h)

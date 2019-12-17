@@ -185,9 +185,11 @@
     <Compile Include="Pick\Picker.cs" />
     <Compile Include="Pick\PickHelp.cs" />
     <Compile Include="Pick\PickResult.cs" />
+    <Compile Include="PostProcess\PostProcess.cs" />
     <Compile Include="PostProcess\Processes\PPBloom.cs" />
     <Compile Include="PostProcess\Processes\PPMotionBlur.cs" />
     <Compile Include="PostProcess\Processes\PPOutLine.cs" />
+    <Compile Include="PostProcess\Processes\PPVirtualGrid.cs" />
     <Compile Include="PostProcess\Processes\VPPBlur.cs" />
     <Compile Include="PostProcess\VPostProcess.cs" />
     <Compile Include="PostProcess\VPostProcessRenderer.cs" />
