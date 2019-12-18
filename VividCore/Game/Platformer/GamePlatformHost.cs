@@ -88,11 +88,11 @@ namespace Vivid.Game.Platformer
 
         }
 
-        public bool RayCast(float x,float y,float x1,float y2)
+        public RayHit RayCast(float x,float y,float x1,float y2)
         {
 
             var res = ColMap.RayCast(x, y, x1, y2);
-
+            return res;
         }
 
         public void AddNode(GraphNode node)

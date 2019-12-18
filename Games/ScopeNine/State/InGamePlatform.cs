@@ -37,8 +37,13 @@ namespace ScopeNine.State
 
             var marks = GameHost.GetMarkers("Spawn");
 
-            Player.X = marks[0].X;
+            Player.X = marks[0].X + 32;
             Player.Y = marks[0].Y;
+
+            Player.X = 50;
+            Player.Y = 35;
+
+
 
             GameHost.Init();
 

@@ -121,8 +121,20 @@ namespace ScopeNine.Sprites
             }
 
             //X = X + xm;
+            var cm = Graph.CreateCollisionMap(0.05f);
 
+            
+            var hit =  cm.RayCast(X, Y, X, Y + 64);
 
+            if (hit == null)
+            {
+                //X = hit.HitX;
+                Y = Y + 1.0f;
+
+            }
+
+            //Rot += 0.1f;
+            
             //vironment.Exit(1);
             //base.Update();
 

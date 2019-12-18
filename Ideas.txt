@@ -32,4 +32,6 @@ the stability. This may lead to something else. Includes a read out of a a.i/rob
 
 - Events within the spriteanim sys, to co-ordinate with frames.
 
+- Vertlett style of custom physics for cloth etc.
+
 - 
