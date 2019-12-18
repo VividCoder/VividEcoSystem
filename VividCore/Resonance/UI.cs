@@ -11,6 +11,7 @@ namespace Vivid.Resonance
 {
     public class UI
     {
+        public UIForm ActiveJoy = null;
         public static MenuForm Menu = null;
         public static Texture.Texture2D WhiteTex = null;
         public static UIForm Active = null;
@@ -170,16 +171,150 @@ namespace Vivid.Resonance
             }
             list.Reverse();
 
+
+
             foreach (var form in list)
             {
+                if(ActiveJoy == null && form.Selectable)
+                {
+                    ActiveJoy = form;
+                }
                 form.Update?.Invoke();
             }
 
-
+            ll = list;
 
             UpdateInput();
+            UpdatePadInput();
 
         }
+        List<UIForm> ll = null;
+        public static int lastPad = 0;
+        public bool padIn = false;
+        public void UpdatePadInput()
+        {
+            
+            if (ActiveJoy == null) return;
+
+            if (padIn)
+            {
+                if (Vivid.Input.XIn.bA() == false)
+                {
+                    ActiveJoy.MouseUp?.Invoke(0);
+                    padIn = false;
+                }
+            }
+            
+            int tick = Environment.TickCount;
+            if ((tick - lastPad) <130)
+            {
+                return;
+            }
+            if (Vivid.Input.XIn.bA())
+            {
+                lastPad = tick;
+                if (padIn == false)
+                {
+                    ActiveJoy.MouseDown?.Invoke(0);
+                    padIn = true;
+                }
+            }
+            else
+            {
+             
+            }
+
+            if (Vivid.Input.XIn.DDown())
+            {
+                lastPad = tick;
+
+                int mx = ActiveJoy.GX + ActiveJoy.W / 2;
+                int my = ActiveJoy.GY + ActiveJoy.H / 2;
+
+                int cx = mx;
+                int cy = my + 25;
+                UIForm sui = NearForm(cx, cy);
+
+                if (sui != null)
+                {
+                    if (sui != ActiveJoy)
+                    {
+                        if (ActiveJoy != null)
+                        {
+                            ActiveJoy.MouseLeave.Invoke();
+                        }
+                    }
+                    ActiveJoy = sui;
+                }
+
+                ActiveJoy.MouseEnter?.Invoke();
+
+            }
+            if (Vivid.Input.XIn.DUp())
+            {
+                lastPad = tick;
+
+                int mx = ActiveJoy.GX + ActiveJoy.W / 2;
+                int my = ActiveJoy.GY + ActiveJoy.H / 2;
+
+                int cx = mx;
+                int cy = my - 25;
+                UIForm sui = NearForm(cx, cy);
+                if (sui != null)
+                {
+                    if (sui != ActiveJoy)
+                    {
+                        if (ActiveJoy != null)
+                        {
+                            ActiveJoy.MouseLeave.Invoke();
+                        }
+                    }
+                    ActiveJoy = sui;
+                }
+
+                ActiveJoy.MouseEnter?.Invoke();
+            }
+
+
+        }
+
+        private UIForm NearForm(int cx, int cy)
+        {
+            int sd = 20000;
+            UIForm sui = null;
+
+            foreach (var f in ll)
+            {
+
+                if (true) //f != ActiveJoy)
+                {
+
+                    if (f.Selectable)
+                    {
+
+                        int tx = f.GX + f.W / 2;
+                        int ty = f.GY + f.H / 2;
+
+                        int xd = tx - cx;
+                        int yd = ty - cy;
+                        int dis = (int)Math.Sqrt(xd * xd + yd * yd);
+
+                        if (dis < sd)
+                        {
+                            sd = dis;
+                            sui = f;
+                        }
+
+
+                    }
+
+                }
+
+            }
+
+            return sui;
+        }
+
         public void Render()
         {
 
@@ -228,6 +363,13 @@ namespace Vivid.Resonance
 
 
                 //                form.PreDraw?.Invoke();
+
+                if(form == ActiveJoy)
+                {
+
+                    form.DrawFormSolid(new Vector4(0, 1, 1, 1), -2, -2, form.W + 4, form.H + 4);
+
+                }
               
                 form.Draw?.Invoke();
 

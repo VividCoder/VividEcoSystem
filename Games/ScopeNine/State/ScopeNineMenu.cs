@@ -53,6 +53,14 @@ namespace ScopeNine.State
 
             };
 
+            if (Vivid.Input.XIn.Start())
+            {
+
+                vid.Stop();
+                VividApp.PushState(new InGamePlatform());
+
+            }
+
             exit.Click = (b) =>
             {
 

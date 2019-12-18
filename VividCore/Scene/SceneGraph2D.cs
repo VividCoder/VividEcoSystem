@@ -38,6 +38,11 @@ namespace Vivid.Scene
             get;
             set;
         }
+        public FXShape ShapeImage
+        {
+            get;
+            set;
+        }
         public FXImage UnlitImage
         { get;
             set;
@@ -107,6 +112,7 @@ namespace Vivid.Scene
             DrawShadow = new FXDrawShadow();
             BlurShadow = new FXBlurShadow();
             UnlitImage = new FXImage();
+            ShapeImage = new FXShape();
         }
 
         public void Copy()
@@ -192,13 +198,10 @@ namespace Vivid.Scene
 
         public void Update()
         {
-            if (Running)
-            {
+            // (Running)
+           //
                 UpdateNode(Root);
-            }
-            else
-            {
-            }
+           
         }
 
         public void UpdateNode(GraphNode node)
@@ -209,6 +212,63 @@ namespace Vivid.Scene
             {
                 UpdateNode(sub);
             }
+        }
+
+        public void DrawShapeNode(GraphNode node,float level)
+        {
+            if (node.ImgFrame != null)
+            {
+
+                node.SyncCoords();
+              //  Console.WriteLine("SP:" + node.ShadowPlane);
+
+                if (node.ShadowPlane == level)
+                {
+
+                    Render.Image(node.DrawP, node.ImgFrame, node.NormalMap, node.ShadowPlane);
+
+                }
+                //Render.Image(xc, yc, node.ImgFrame);
+
+
+
+            }
+            foreach (GraphNode snode in node.Nodes)
+            {
+                DrawShapeNode(snode,level);
+            }
+        
+        }
+        public CollisionMap CreateCollisionMap(float minz=0.05f)
+        {
+            var map = new CollisionMap();
+
+            AddNodeToMap(map,Root,minz);
+
+            return map;
+        }
+
+        public void AddNodeToMap(CollisionMap map, GraphNode node, float minz)
+        {
+
+            if(node is GraphSprite && node.ShadowPlane>minz)
+            {
+                node.SyncCoords();
+                map.AddLine(node.DrawP[0].X, node.DrawP[0].Y, node.DrawP[1].X, node.DrawP[1].Y);
+                map.AddLine(node.DrawP[1].X,node.DrawP[1].Y,node.DrawP[2].X,node.DrawP[2].Y);
+                map.AddLine(node.DrawP[2].X, node.DrawP[2].Y, node.DrawP[3].X, node.DrawP[3].Y);
+                map.AddLine(node.DrawP[3].X, node.DrawP[3].Y, node.DrawP[0].X, node.DrawP[0].Y);
+            }
+            else
+            {
+                int vv = 5;
+
+            }
+            foreach(var sub in node.Nodes)
+            {
+                AddNodeToMap(map, sub,minz);
+            }
+
         }
 
         public void DrawNode(GraphNode node)
@@ -249,7 +309,19 @@ namespace Vivid.Scene
                 xc = node.XC;
                 yc = node.YC;
 
-               
+                if (node.FlipDrawX)
+                {
+
+
+                    var p1 = node.DrawP[0];
+                    node.DrawP[0] = node.DrawP[1];
+                    node.DrawP[1] = p1;
+                    p1 = node.DrawP[2];
+                    node.DrawP[2] = node.DrawP[3];
+                    node.DrawP[3] = p1;
+
+
+                }
              
                 Render.Image(node.DrawP, node.ImgFrame,node.NormalMap ,node.ShadowPlane);
             
@@ -373,6 +445,16 @@ namespace Vivid.Scene
             Render.End2D();
             UnlitImage.Release();
 
+        }
+
+        public void DrawShapes(float level)
+        {
+            Render.Begin();
+            DrawShapeNode(Root,level);
+            ShapeImage.Bind();
+            Render.End2D();
+            ShapeImage.Release();
+           
         }
         public void Draw(bool shadows)
         {

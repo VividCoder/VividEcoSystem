@@ -18,7 +18,7 @@ A common "Game" set up for new games, with the tools/ide simply providing the ov
 
 -End of the game, a big reveal is scope nine is actually a virtual A.I program. The game ends with a new title
 screen "Virtual One" - And the single ui elemnt "End Game" - IF booted afterwards, you see a ai read-out, monitoring
-the stability. This may lead to something else.
+the stability. This may lead to something else. Includes a read out of a a.i/robot search term through google.
 
 -Genetic Eng.
 
@@ -29,3 +29,7 @@ the stability. This may lead to something else.
 -The VR Grid overlay becomes a full VR system at the end of the game.
 
 - A VR Grid that renders around the map rather than a straight texture.
+
+- Events within the spriteanim sys, to co-ordinate with frames.
+
+- 

@@ -17,6 +17,7 @@ namespace Vivid.Resonance.Forms
 
         public ButtonForm()
         {
+            Selectable = true;
             if (BleepSrc == null)
             {
                 //BleepSrc = new Vivid.Audio.Songs.

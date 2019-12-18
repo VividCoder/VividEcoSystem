@@ -26,4 +26,3 @@ C:\Projects\VividEcoSystem\Management\VividManager\bin\x64\Debug\CSScriptLibrary
 C:\Projects\VividEcoSystem\Management\VividManager\obj\x64\Debug\VividManager.csproj.CopyComplete
 C:\Projects\VividEcoSystem\Management\VividManager\obj\x64\Debug\VividManager.exe
 C:\Projects\VividEcoSystem\Management\VividManager\obj\x64\Debug\VividManager.pdb
-C:\Projects\VividEcoSystem\Management\VividManager\obj\x64\Debug\VividManager.csprojAssemblyReference.cache

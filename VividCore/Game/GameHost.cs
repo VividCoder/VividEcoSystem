@@ -16,5 +16,10 @@ namespace Vivid.Game
 
         }
 
+        public virtual void Update()
+        {
+
+        }
+
     }
 }

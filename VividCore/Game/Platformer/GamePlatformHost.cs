@@ -22,6 +22,7 @@ namespace Vivid.Game.Platformer
 
         public Map.Map CurMap = null;
         public Vivid.Scene.SceneGraph2D Graph = null;
+        public CollisionMap ColMap = null;
         public List<GraphMarker> GetMarkers(string type,string sub="",int index=0)
         {
 
@@ -82,7 +83,15 @@ namespace Vivid.Game.Platformer
                 if (n.Z > maz) maz = n.Z;
             }
             Console.WriteLine("MinZ:" + mz + " MaxZ:" + maz);
+            ColMap = Graph.CreateCollisionMap();
 
+
+        }
+
+        public bool RayCast(float x,float y,float x1,float y2)
+        {
+
+            var res = ColMap.RayCast(x, y, x1, y2);
 
         }
 
@@ -97,6 +106,13 @@ namespace Vivid.Game.Platformer
         }
 
         bool light = false;
+        public override void Update()
+        {
+            if (Graph != null)
+            {
+                Graph.Update();
+            }
+        }
         public void RenderMap()
         {
             if (light == false)
@@ -106,7 +122,7 @@ namespace Vivid.Game.Platformer
                     l.CheckShadowSize(AppInfo.W, AppInfo.H);
                     l.RenderShadowBuffer(Graph);
                 }
-                light = true;
+                light = false;
             }
             Graph.Draw(true);
 

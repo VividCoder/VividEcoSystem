@@ -187,6 +187,7 @@
     <Compile Include="Pick\PickResult.cs" />
     <Compile Include="PostProcess\PostProcess.cs" />
     <Compile Include="PostProcess\Processes\PPBloom.cs" />
+    <Compile Include="PostProcess\Processes\PPMapGrid.cs" />
     <Compile Include="PostProcess\Processes\PPMotionBlur.cs" />
     <Compile Include="PostProcess\Processes\PPOutLine.cs" />
     <Compile Include="PostProcess\Processes\PPVirtualGrid.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Scene\Anim\Nodes\NodeNode.cs" />
     <Compile Include="Scene\Bounds.cs" />
     <Compile Include="Scene\ClassLink.cs" />
+    <Compile Include="Scene\CollisionMap.cs" />
     <Compile Include="Scene\Flare\Flare3D.cs" />
     <Compile Include="Scene\Flare\FlareBloom.cs" />
     <Compile Include="Scene\FusionBase.cs" />
@@ -255,6 +257,7 @@
     <Compile Include="Scene\SceneGraph2D.cs" />
     <Compile Include="Scene\SceneGraph3D.cs" />
     <Compile Include="Scene\SceneInfo.cs" />
+    <Compile Include="Scene\SpriteAnim.cs" />
     <Compile Include="Scripting\NodeScript.cs" />
     <Compile Include="Script\NodeScriptLink.cs" />
     <Compile Include="Script\Nodes\BaseNodeScript.cs" />

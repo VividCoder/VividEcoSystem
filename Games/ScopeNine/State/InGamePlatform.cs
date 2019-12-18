@@ -27,11 +27,13 @@ namespace ScopeNine.State
                
            GameHost.SetMap("Corona/Map/test3");
 
-            GameHost.SetMusic("Corona/Song/GameLevel1.mp3");
+            GameHost.SetMusic("Corona/Song/GameLevelOne.mp3");
 
             ScopeNine.Sprites.CharScopeNine Player = new Sprites.CharScopeNine();
 
             GameHost.AddNode(Player as GraphNode);
+
+           // Player.Update();
 
             var marks = GameHost.GetMarkers("Spawn");
 
@@ -52,6 +54,7 @@ namespace ScopeNine.State
         {
             base.UpdateState();
             Texture2D.UpdateLoading();
+            GameHost.Update();
         }
 
         public override void DrawState()

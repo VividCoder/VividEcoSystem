@@ -264,6 +264,7 @@ namespace Vivid.Tex
 
             if (new FileInfo(path + ".cache").Exists)
             {
+               
                 FileStream fs = new FileStream(path + ".cache", FileMode.Open, FileAccess.Read);
                 BinaryReader r = new BinaryReader(fs);
                 Name = r.ReadString();
@@ -348,7 +349,13 @@ namespace Vivid.Tex
             }
             else
             {
-                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, Width, Height, 0, PixelFormat.Rgb, PixelType.UnsignedByte, RawData);
+                try {
+                    GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, Width, Height, 0, PixelFormat.Rgb, PixelType.UnsignedByte, RawData);
+                }
+                catch
+                {
+
+                }
             }
 
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);

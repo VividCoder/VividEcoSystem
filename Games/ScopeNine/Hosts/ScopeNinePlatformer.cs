@@ -20,18 +20,21 @@ namespace ScopeNine.Hosts
     public class ScopeNinePlatformer : Vivid.Game.Platformer.GamePlatformHost
     {
 
-        PPVirtualGrid VGrid = null;
+        PPMapGrid VGrid = null;
 
         public void Init()
         {
 
-            VGrid = new PPVirtualGrid();
+            VGrid = new PPMapGrid();
+            VGrid.Map = CurMap;
+            VGrid.Graph = Graph;
 
         }
 
         public void Render()
         {
             RenderMap();
+
 
             VGrid.Process(null);
         }

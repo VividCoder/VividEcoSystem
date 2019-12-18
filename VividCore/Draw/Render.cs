@@ -112,9 +112,9 @@ namespace Vivid.Draw
             {
                 if(NormBlank == null)
                 {
-                    NormBlank = new Tex2D("data/ui/normblank.png", false);
+                   // NormBlank = new Tex2D("data/ui/normblank.png", false);
                 }
-                norm = NormBlank;
+                //norm = NormBlank;
             }
             
             float[] cx = new float[4];

@@ -98,6 +98,7 @@ namespace Vivid.Resonance
             
 
         }
+        public bool Selectable = false;
         private string _text = "";
         public DockMethod DockStyle = DockMethod.None;
         public UIForm Root = null;

@@ -229,7 +229,7 @@ namespace Vivid.Scene
             Y = Y + y;
             Z = Z + z;
         }
-
+        public bool FlipDrawX = false;
         public void Move(float x, float y, float z = 0.0f)
         {
             Vector2 r = Util.Maths.Rotate(x, y, 360 - Rot, 1.0f);

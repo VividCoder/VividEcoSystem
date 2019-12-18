@@ -27,7 +27,7 @@ namespace ScopeNine.State
 
             SUI = new UI();
 
-            var vid = new VideoForm().Set(0, 0, AppInfo.W, AppInfo.H) as VideoForm;
+             vid = new VideoForm().Set(0, 0, AppInfo.W, AppInfo.H) as VideoForm;
             Console.WriteLine("Play video");
             vid.SetVideo("Corona/Video/intro1.mov");
             SUI.Root = vid;
@@ -40,10 +40,11 @@ namespace ScopeNine.State
 
             };
 
-            
+         
            
 
         }
+        static VideoForm vid;
 
         public override void UpdateState()
         {
@@ -52,6 +53,17 @@ namespace ScopeNine.State
             Texture2D.UpdateLoading();
             SUI.Update();
             Console.WriteLine("Testing!");
+            if (Vivid.Input.XIn.Start())
+            {
+                while (Vivid.Input.XIn.Start())
+                {
+                    System.Threading.Thread.Sleep(50);
+                }
+
+                vid.Stop();
+                VividApp.PushState(new ScopeNineMenu());
+            }
+
 
         }
 

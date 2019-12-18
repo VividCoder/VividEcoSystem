@@ -1,9 +1,72 @@
 ﻿using OpenTK.Input;
 
 using System.Collections.Generic;
+using XInputDotNetPure;
 
 namespace Vivid.Input
 {
+    public class XIn
+    {
+
+        public static bool Start()
+        {
+
+            var st = XInputDotNetPure.GamePad.GetState(PlayerIndex.One);
+            if(st.Buttons.Start == XInputDotNetPure.ButtonState.Pressed)
+            {
+                int vv = 5;
+            }
+            return st.Buttons.Start == XInputDotNetPure.ButtonState.Pressed;
+
+        }
+        public static bool bY()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).Buttons.Y == XInputDotNetPure.ButtonState.Pressed;
+        }
+        public static bool bA()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).Buttons.A == XInputDotNetPure.ButtonState.Pressed;
+        }
+        public static bool bB()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).Buttons.B == XInputDotNetPure.ButtonState.Pressed;
+        }
+        public static bool bX()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).Buttons.X == XInputDotNetPure.ButtonState.Pressed;
+        }
+        public static bool leftB()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == XInputDotNetPure.ButtonState.Pressed;
+        }
+        public static bool rightB()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == XInputDotNetPure.ButtonState.Pressed;
+        }
+        public static bool DUp()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).DPad.Up == XInputDotNetPure.ButtonState.Pressed;
+        }
+        public static bool DDown()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).DPad.Down == XInputDotNetPure.ButtonState.Pressed;
+        }
+        public static float LeftX()
+        {
+
+            var st = XInputDotNetPure.GamePad.GetState(PlayerIndex.One);
+
+            return st.ThumbSticks.Left.X;
+
+        }
+
+        public static float LeftY()
+        {
+            var st = XInputDotNetPure.GamePad.GetState(PlayerIndex.One);
+            return st.ThumbSticks.Left.Y;
+        }
+
+    }
     public class Input
     {
         public static void InitInput()

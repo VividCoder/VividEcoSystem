@@ -6,7 +6,9 @@
       
 
         public static Tex.Tex2D NormalBlank=null;
-       
+
+
+        
         public GraphSprite(int w,int h)
         {
 
