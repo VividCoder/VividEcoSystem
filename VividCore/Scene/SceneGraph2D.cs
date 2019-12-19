@@ -247,17 +247,38 @@ namespace Vivid.Scene
 
             return map;
         }
+        float x, y, z, rot;
+        public void StoreCam()
+        {
+            x = X;
+            y = Y;
+            z = Z;
+            rot = Rot;
 
+        }
+        public void RestoreCam()
+        {
+            X = x;
+            Y = y;
+            Z = z;
+            Rot = rot;
+        }
         public void AddNodeToMap(CollisionMap map, GraphNode node, float minz)
         {
 
             if(node is GraphSprite && node.ShadowPlane>minz)
             {
-                node.SyncCoords();
-                map.AddLine(node.DrawP[0].X, node.DrawP[0].Y, node.DrawP[1].X, node.DrawP[1].Y);
-                map.AddLine(node.DrawP[1].X,node.DrawP[1].Y,node.DrawP[2].X,node.DrawP[2].Y);
-                map.AddLine(node.DrawP[2].X, node.DrawP[2].Y, node.DrawP[3].X, node.DrawP[3].Y);
-                map.AddLine(node.DrawP[3].X, node.DrawP[3].Y, node.DrawP[0].X, node.DrawP[0].Y);
+                if (!(node is Game.GameSprite))
+                {
+
+                    node.SyncCoords();
+                    map.AddLine(node.DrawP[0].X, node.DrawP[0].Y, node.DrawP[1].X, node.DrawP[1].Y, 0, -1);
+                    map.AddLine(node.DrawP[1].X, node.DrawP[1].Y, node.DrawP[2].X, node.DrawP[2].Y, 1, 0);
+                    map.AddLine(node.DrawP[2].X, node.DrawP[2].Y, node.DrawP[3].X, node.DrawP[3].Y, 0, 1);
+                    map.AddLine(node.DrawP[3].X, node.DrawP[3].Y, node.DrawP[0].X, node.DrawP[0].Y, -1, 0);
+
+                }
+               // RestoreCam();
             }
             else
             {

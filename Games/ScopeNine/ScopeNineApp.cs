@@ -22,7 +22,7 @@ namespace ScopeNine
         public ScopeNineApp() : base("ScopeNine Alpha",1024,700,false)
         {
 
-            InitState = new ScopeNineIntro();
+            InitState = new InGamePlatform();
 
             Run();
 

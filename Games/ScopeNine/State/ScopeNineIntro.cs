@@ -40,6 +40,10 @@ namespace ScopeNine.State
 
             };
 
+
+            var lab = new LabelForm().Set(AppInfo.W / 2 - 110, AppInfo.H - 80, 300, 30, "PRESS START TO CONTINUE") as LabelForm;
+
+            vid.Add(lab);
          
            
 

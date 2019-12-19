@@ -240,6 +240,7 @@
     <Compile Include="Scene\Bounds.cs" />
     <Compile Include="Scene\ClassLink.cs" />
     <Compile Include="Scene\CollisionMap.cs" />
+    <Compile Include="Scene\DebugGraph.cs" />
     <Compile Include="Scene\Flare\Flare3D.cs" />
     <Compile Include="Scene\Flare\FlareBloom.cs" />
     <Compile Include="Scene\FusionBase.cs" />

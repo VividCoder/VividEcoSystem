@@ -34,4 +34,10 @@ the stability. This may lead to something else. Includes a read out of a a.i/rob
 
 - Vertlett style of custom physics for cloth etc.
 
-- 
+- Cut scenes in blender.
+
+- Wall jumping. Side to side.
+
+-Make selling the game priority. with possibly "Buy the game engine" page on the game's site, for new games or add-ons.
+
+- Pick ups including coins/scoring.

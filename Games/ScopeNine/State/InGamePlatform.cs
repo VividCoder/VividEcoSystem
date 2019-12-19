@@ -40,8 +40,11 @@ namespace ScopeNine.State
             Player.X = marks[0].X + 32;
             Player.Y = marks[0].Y;
 
-            Player.X = 50;
-            Player.Y = 35;
+            Player.X = 42;
+            Player.Y = 32;
+
+            GameHost.Graph.X -= 100;
+
 
 
 

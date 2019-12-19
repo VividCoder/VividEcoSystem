@@ -30,6 +30,8 @@ namespace ScopeNine.Sprites
 
         public ScopeState State = ScopeState.Idle;
 
+        bool onGround = false;
+
         public CharScopeNine() : base(86,86)
         {
 
@@ -53,13 +55,13 @@ namespace ScopeNine.Sprites
             switch (State)
             {
                 case ScopeState.Idle:
-                    if(CurAnim != Anims["Idle1"])
+                    if (CurAnim != Anims["Idle1"])
                     {
                         SetAnim("Idle1");
                     }
                     break;
                 case ScopeState.Walking:
-                    if(CurAnim!=Anims["Walk1"])
+                    if (CurAnim != Anims["Walk1"])
                     {
                         SetAnim("Walk1");
                     }
@@ -77,7 +79,31 @@ namespace ScopeNine.Sprites
 
             float xm = XIn.LeftX();
 
+            if (Vivid.Input.Input.KeyIn(OpenTK.Input.Key.A))
+            {
+                xm = -1;
+            }
+
+            if (Vivid.Input.Input.KeyIn(OpenTK.Input.Key.D))
+            {
+                xm = 1;
+            }
+
+
             xm = xm * 0.4f;
+
+            if (XIn.bX())
+            {
+                if (onGround)
+                {
+
+                    Move2D(0, -10);
+                    onGround = false;
+                    //State = ScopeState.Jumping;
+                    Y = Y - 3;
+
+                }
+            }
 
             if (XIn.leftB())
             {
@@ -123,13 +149,25 @@ namespace ScopeNine.Sprites
             //X = X + xm;
             var cm = Graph.CreateCollisionMap(0.05f);
 
-            
-            var hit =  cm.RayCast(X, Y, X, Y + 64);
+
+            float cx = this.RealX;
+            float cy = this.RealY;
+
+
+
+            var hit =  cm.RayCast(cx, cy, cx, cy + 60);
 
             if (hit == null)
             {
                 //X = hit.HitX;
-                Y = Y + 1.0f;
+                Move2D(0, 0.3f);
+                onGround = false;
+            }
+            else 
+            {
+               Y = hit.HitY - 62;
+                onGround = true;
+
 
             }
 

@@ -7,8 +7,114 @@
 
         public static Tex.Tex2D NormalBlank=null;
 
+         public float RealX
+        {
+            get
+            {
 
-        
+                SyncCoords();
+
+                return CenterX;
+
+
+
+            }
+        }
+
+        public float RealY
+        {
+            get
+            {
+                SyncCoords();
+                return CenterY;
+            }
+        }
+
+        public float SmallX
+        {
+            get
+            {
+                SyncCoords();
+                float rx = 30000;
+                foreach(var p in DrawP)
+                {
+                    if (p.X < rx) rx = p.X;
+                }
+                return rx;
+
+            }
+        }
+
+        public float SmallY
+        {
+            get
+            {
+                SyncCoords();
+                float ry = 30000;
+                foreach (var p in DrawP)
+                {
+                    if (p.Y < ry) ry = p.Y;
+                }
+                return ry;
+
+            }
+        }
+
+        public float BigX
+        {
+            get
+            {
+                SyncCoords();
+                float rx = -30000;
+                foreach (var p in DrawP)
+                {
+                    if (p.X > rx) rx = p.X;
+                }
+                return rx;
+
+            }
+        }
+
+        public float BigY
+        {
+            get
+            {
+                SyncCoords();
+                float ry = -30000;
+                foreach (var p in DrawP)
+                {
+                    if (p.Y > ry) ry = p.Y;
+                }
+                return ry;
+
+            }
+        }
+
+
+        public float CenterX
+        {
+            get
+            {
+                var sx = SmallX;
+                var bx = BigX;
+
+                var nv = (bx - sx) / 2;
+                return sx + nv;
+
+            }
+        }
+
+        public float CenterY
+        {
+            get
+            {
+                var sy = SmallY;
+                var by = BigY;
+                var nv = (by - sy) / 2;
+                return sy + nv;
+            }
+        }
+
         public GraphSprite(int w,int h)
         {
 

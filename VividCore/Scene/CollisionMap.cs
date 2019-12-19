@@ -18,13 +18,15 @@ namespace Vivid.Scene
             Entities.Add(ne);
         }
 
-        public void AddLine(float x, float y, float x2, float y2)
+        public void AddLine(float x, float y, float x2, float y2,float nx,float ny)
         {
             var ne = new CollisionLine();
             ne.X1 = x;
             ne.Y1 = y;
             ne.X2 = x2;
             ne.Y2 = y2;
+            ne.NX = nx;
+            ne.NY = ny;
             Entities.Add(ne);
         }
 
@@ -42,6 +44,12 @@ namespace Vivid.Scene
                     {
                         sd = rh.Dis;
                         near = rh;
+
+                        float xd = x2 - rh.HitX;
+                        float yd = y2 - rh.HitY;
+                        float IS = (float)Math.Sqrt(xd * xd + yd * yd);
+                        rh.IS = IS;
+
                     }
                 }
             }
@@ -58,6 +66,7 @@ namespace Vivid.Scene
     {
         public float HitX, HitY;
         public float Dis;
+        public float IS = 0;
 
     }
 
@@ -79,6 +88,8 @@ namespace Vivid.Scene
     public class CollisionLine : CollisionEntity
     {
         public float X1, Y1, X2, Y2;
+        public float NX, NY;
+
         public override RayHit RayCast(float x, float y, float x2, float y2)
         {
 
@@ -101,13 +112,13 @@ namespace Vivid.Scene
             };
 
             Point rp = LineIntersection.FindIntersection(l1, l2);
-
+            
             float xd = (float)rp.x - x;
             float yd = (float)rp.y - y;
             float d = (float)Math.Sqrt(xd * xd + yd * yd);
             if (rp.x == 0 && rp.y == 0)
             {
-                return null;
+                 return null;
             };
 
 
@@ -163,7 +174,8 @@ namespace Vivid.Scene
             // equations of the form x = c (two vertical lines)
             if (Math.Abs(x1 - x2) < tolerance && Math.Abs(x3 - x4) < tolerance && Math.Abs(x1 - x3) < tolerance)
             {
-                throw new Exception("Both lines overlap vertically, ambiguous intersection points.");
+                return default(Point);
+                //throw new Exception("Both lines overlap vertically, ambiguous intersection points.");
             }
 
             //equations of the form y=c (two horizontal lines)
