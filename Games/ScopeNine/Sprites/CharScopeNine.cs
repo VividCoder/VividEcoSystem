@@ -17,6 +17,7 @@ using System.IO;
 using Vivid.Game;
 using Vivid.Game.Platformer;
 using Vivid.Input;
+using Vivid.Audio;
 namespace ScopeNine.Sprites
 {
 
@@ -39,6 +40,7 @@ namespace ScopeNine.Sprites
         public int CurSlot = 0;
         public ScopeProjector[] Slots = new ScopeProjector[3];
         public ImageForm CurSlotF;
+        public VSoundSource ChangeSrc;
         public void RebuildWeaponHud()
         {
 
@@ -85,7 +87,7 @@ namespace ScopeNine.Sprites
             WeaponHudImg = new Texture2D("Corona/img/icon/weaponhud1.png",LoadMethod.Single, true);
             PulseAimImg = new Tex2D("Corona/img/icon/pulseaim1.png", true);
             CurProjImg = new Texture2D("Corona/img/icon/curproj.png", LoadMethod.Single, true);
-
+            ChangeSrc = Vivid.Audio.Songs.LoadSound("Corona/sound/hud/projchange.mp3");
             HudTop = new UIForm().Set(0, 0, AppInfo.W, AppInfo.H);
 
             WH[0] = new ImageForm().Set(20, 20, 44, 44).SetImage(WeaponHudImg) as ImageForm;
@@ -124,8 +126,10 @@ namespace ScopeNine.Sprites
         int lastJump = 0;
         public float aimAngle = 0;
         public GraphLight aimLight = null;
-        bool usePad = true;
+        bool usePad = false;
         public GraphSprite AimSprite = null;
+        public int lastShot = 0;
+        public bool ShotAlready = false;
         public override void Update()
         {
 
@@ -216,7 +220,7 @@ namespace ScopeNine.Sprites
 
             if (!changedSlot)
             {
-                if (XIn.DLeft())
+                if (XIn.DLeft() || Vivid.Input.Input.KeyIn(OpenTK.Input.Key.Q))
                 {
                     CurSlot--;
                     if(CurSlot<0)
@@ -232,8 +236,9 @@ namespace ScopeNine.Sprites
                     }
                     changedSlot = true;
                     RebuildWeaponHud();
+                    Songs.PlaySource(ChangeSrc, false);
                 }
-                if (XIn.DRight())
+                if (XIn.DRight() || Vivid.Input.Input.KeyIn(OpenTK.Input.Key.E))
                 {
                     CurSlot++;
                     if(CurSlot == 3)
@@ -246,11 +251,12 @@ namespace ScopeNine.Sprites
                     }
                     changedSlot = true;
                     RebuildWeaponHud();
+                    Songs.PlaySource(ChangeSrc, false);
                 }
             }
             else
             {
-                if(XIn.DLeft()==false && XIn.DRight() == false)
+                if(XIn.DLeft()==false && XIn.DRight() == false && Input.KeyIn(OpenTK.Input.Key.Q) == false && Input.KeyIn(OpenTK.Input.Key.E) == false)
                 {
                     changedSlot = false;
                 }
@@ -282,6 +288,26 @@ namespace ScopeNine.Sprites
             ImgFrame = GetAnimFrame();
 
             float xm = XIn.LeftX();
+
+            if (Vivid.Input.Input.MB[0] && !ShotAlready && Environment.TickCount>(lastShot+800))
+            {
+
+                var shotSpr = Slots[CurSlot].GetNew();
+                shotSpr.X = AimSprite.X;
+                shotSpr.Y = AimSprite.Y;
+                Graph.Add(shotSpr);
+                Graph.Add(shotSpr.Light1);
+
+                shotSpr.XM = (float)Math.Cos(aimAngle);
+                shotSpr.YM = (float)Math.Sin(aimAngle);
+
+                ShotAlready = true;
+                lastShot = Environment.TickCount;
+            }
+            if (Vivid.Input.Input.MB[0] == false)
+            {
+                ShotAlready = false;
+            }
 
             if (Vivid.Input.Input.KeyIn(OpenTK.Input.Key.A))
             {
