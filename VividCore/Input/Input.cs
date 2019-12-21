@@ -43,6 +43,14 @@ namespace Vivid.Input
         {
             return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == XInputDotNetPure.ButtonState.Pressed;
         }
+        public static void Rumble()
+        {
+            XInputDotNetPure.GamePad.SetVibration(PlayerIndex.One, 0, 0);
+             XInputDotNetPure.GamePad.SetVibration(PlayerIndex.One, 100, 100);
+            //XInputDotNetPure.GamePad.GetState(PlayerIndex.One).
+
+
+        }
         public static bool DUp()
         {
             return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).DPad.Up == XInputDotNetPure.ButtonState.Pressed;

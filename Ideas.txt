@@ -41,3 +41,20 @@ the stability. This may lead to something else. Includes a read out of a a.i/rob
 -Make selling the game priority. with possibly "Buy the game engine" page on the game's site, for new games or add-ons.
 
 - Pick ups including coins/scoring.
+
+- Generate collision maps by staggered points turned into lines.
+
+- Beautiful moments, not longivity.
+
+- Level 1 - End Segment - Break a overhead electricity wire, that collapses onto the ScopeOne droid and disables it.
+
+- Rain FX
+
+-Transitions FX
+
+
+---- Projectors.
+
+  1. Close Range POWER shot. To disable near-by electronics.
+ 
+   2. Long Range weak shot. To disable and change further away objects.

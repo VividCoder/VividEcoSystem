@@ -22,7 +22,11 @@ namespace ScopeNine
         public ScopeNineApp() : base("ScopeNine Alpha",1024,700,false)
         {
 
+            //Vivid.Input.XIn.Rumble();
+
+
             InitState = new InGamePlatform();
+
 
             Run();
 

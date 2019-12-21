@@ -31,12 +31,82 @@ namespace ScopeNine.Sprites
         public ScopeState State = ScopeState.Idle;
 
         bool onGround = false;
+        public Tex2D PulseAimImg = null;
+        public Texture2D WeaponHudImg;
+        ImageForm[] WH = new ImageForm[3];
+        UIForm HudTop = null;
+        public Texture2D CurProjImg = null;
+        public int CurSlot = 0;
+        public ScopeProjector[] Slots = new ScopeProjector[3];
+        public ImageForm CurSlotF;
+        public void RebuildWeaponHud()
+        {
+
+            if(CurSlotF == null)
+            {
+
+                CurSlotF = new ImageForm().Set(0, 0, 44, 44).SetImage(CurProjImg) as ImageForm;
+                UI.CurUI.Top.Add(CurSlotF);
+
+
+            }
+
+            for(int i = 0; i < Slots.Length; i++)
+            {
+
+                WH[i].Forms.Clear();
+                if (Slots[i] != null)
+                {
+
+                    var pimg = Slots[i].HudImg;
+
+                    var sf = new ImageForm().Set(3, 3, WH[i].W - 6, WH[i].H - 6).SetImage(pimg) as ImageForm;
+
+                    WH[i].Add(sf);
+
+
+                }
+                if(CurSlot==i)
+                {
+
+                    CurSlotF.Set(WH[i].GX, WH[i].GY + 6, 44, 44);
+
+                }
+
+            }
+
+        }
 
         public CharScopeNine() : base(86,86)
         {
 
             SetImage(new Tex2D("Corona/Entity/Chars/ScopeNine/Idle1.png",true));
             CastShadow = true;
+            WeaponHudImg = new Texture2D("Corona/img/icon/weaponhud1.png",LoadMethod.Single, true);
+            PulseAimImg = new Tex2D("Corona/img/icon/pulseaim1.png", true);
+            CurProjImg = new Texture2D("Corona/img/icon/curproj.png", LoadMethod.Single, true);
+
+            HudTop = new UIForm().Set(0, 0, AppInfo.W, AppInfo.H);
+
+            WH[0] = new ImageForm().Set(20, 20, 44, 44).SetImage(WeaponHudImg) as ImageForm;
+            WH[1] = new ImageForm().Set(66, 20, 44, 44).SetImage(WeaponHudImg) as ImageForm;
+            WH[2] = new ImageForm().Set(110, 20, 44, 44).SetImage(WeaponHudImg) as ImageForm;
+
+
+            UI.CurUI.Top = HudTop;
+
+
+
+            HudTop.Add(WH[0]);
+            HudTop.Add(WH[1]);
+            HudTop.Add(WH[2]);
+
+            Slots[0] = new BigShotProjector();
+            Slots[1] = new LongShotProjector();
+
+
+            RebuildWeaponHud();
+
             Z = 1;
             ShadowPlane = 1;
             AddAnim("Walk1", new SpriteAnim("Corona/Entity/Chars/ScopeNine/AnimWalk/",0.5f));
@@ -49,8 +119,65 @@ namespace ScopeNine.Sprites
 
         }
 
+        int lmz = 0;
+        int lastJump = 0;
+        public float aimAngle = 0;
+        public GraphLight aimLight = null;
+        public GraphSprite AimSprite = null;
         public override void Update()
         {
+
+            if(AimSprite == null)
+            {
+                AimSprite = new GraphSprite(PulseAimImg, null);
+                AimSprite.X = X;
+                AimSprite.Y = Y;
+                Graph.Add(AimSprite);
+                aimLight = new GraphLight();
+                aimLight.Diffuse = new OpenTK.Vector3(0, 0.2f, 0.2f);
+                aimLight.Range = 150;
+
+                Graph.Add(aimLight);
+
+                
+
+
+            }
+            else
+            {
+
+                float rx = RealX;
+                float ry = RealY;
+
+                float mx = Vivid.Input.Input.MX;
+                float my = Vivid.Input.Input.MY;
+
+                float ang = (float)Math.Atan2(my - ry, mx - rx);
+
+                aimAngle = ang;
+
+                AimSprite.Rot = OpenTK.MathHelper.RadiansToDegrees( aimAngle);
+
+                //Console.WriteLine("Rot:" + AimSprite.Rot);
+
+                float xo = (float)Math.Cos(aimAngle);
+                float yo = (float)Math.Sin(aimAngle);
+
+                xo = xo * 64;
+                yo = yo * 64;
+
+
+                AimSprite.X = X+xo;
+                AimSprite.Y = Y+yo;
+                aimLight.X = AimSprite.X;
+                aimLight.Y = AimSprite.Y;
+            }
+
+
+            if (Vivid.Input.Input.MB[1])
+            {
+                CurSlot++;
+            }
 
             switch (State)
             {
@@ -92,20 +219,21 @@ namespace ScopeNine.Sprites
 
             xm = xm * 0.4f;
 
-            if (XIn.bX())
+            if (XIn.bX() || Input.KeyIn(OpenTK.Input.Key.Space))
             {
-                if (onGround)
+                if (onGround && Environment.TickCount>(lastJump+500) )
                 {
 
                     Move2D(0, -10);
                     onGround = false;
                     //State = ScopeState.Jumping;
-                    Y = Y - 3;
+                    Y = Y - 10;
 
+                    lastJump = Environment.TickCount;
                 }
             }
 
-            if (XIn.leftB())
+            if (XIn.leftB() || Input.KeyIn(OpenTK.Input.Key.ShiftLeft))
             {
                 xm = xm * 2;
                 
@@ -155,20 +283,32 @@ namespace ScopeNine.Sprites
 
 
 
-            var hit =  cm.RayCast(cx, cy, cx, cy + 60);
-
-            if (hit == null)
+            if (Environment.TickCount > (lastJump + 500))
             {
-                //X = hit.HitX;
-                Move2D(0, 0.3f);
-                onGround = false;
-            }
-            else 
-            {
-               Y = hit.HitY - 62;
-                onGround = true;
+                var hit = cm.RayCast(cx, cy, cx, cy + 60 * Graph.Z);
+
+                if (hit == null)
+                {
+                    //X = hit.HitX;
+                    Move2D(0, 0.3f);
+                    onGround = false;
+                }
+                else
+                {
+                    float dis = hit.HitY - 50 * Graph.Z;
+
+                    dis = Math.Abs((dis - Y));
 
 
+                    if (dis < 32*Graph.Z)
+                    {
+
+                        Yi = 0;
+                        //Y = cy; // hit.HitY - 32 * Graph.Z;
+                        onGround = true;
+                    }
+
+                }
             }
 
             //Rot += 0.1f;

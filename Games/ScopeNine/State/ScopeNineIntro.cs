@@ -29,7 +29,7 @@ namespace ScopeNine.State
 
              vid = new VideoForm().Set(0, 0, AppInfo.W, AppInfo.H) as VideoForm;
             Console.WriteLine("Play video");
-            vid.SetVideo("Corona/Video/intro1.mov");
+            vid.SetVideo("Corona/Video/intro2.mov");
             SUI.Root = vid;
             SUI.FadeUI = false;
             SUI.FadeAlpha = 0.0f;
@@ -67,7 +67,9 @@ namespace ScopeNine.State
                 vid.Stop();
                 VividApp.PushState(new ScopeNineMenu());
             }
-
+        
+               
+           
 
         }
 

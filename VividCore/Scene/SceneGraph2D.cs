@@ -208,9 +208,11 @@ namespace Vivid.Scene
         {
             node.Update();
 
-            foreach (GraphNode sub in node.Nodes)
+            //foreach (GraphNode sub in node.Nodes)
+            //{
+            for (int i = 0; i < node.Nodes.Count; i++)
             {
-                UpdateNode(sub);
+                UpdateNode(node.Nodes[i]);
             }
         }
 

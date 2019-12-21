@@ -23,6 +23,8 @@ namespace ScopeNine.State
         public InGamePlatform()
         {
 
+            SUI = new UI();
+
             GameHost = new Hosts.ScopeNinePlatformer();
                
            GameHost.SetMap("Corona/Map/test3");
@@ -43,12 +45,15 @@ namespace ScopeNine.State
             Player.X = 42;
             Player.Y = 32;
 
-            GameHost.Graph.X -= 100;
+            //Vivid.
+
+            GameHost.Graph.X -= 200;
 
 
-
-
+        
+            GameHost.Graph.Z = 1.6f;
             GameHost.Init();
+
 
 
         }
@@ -56,6 +61,7 @@ namespace ScopeNine.State
         public override void InitState()
         {
             base.InitState();
+       
         }
 
         public override void UpdateState()
@@ -63,6 +69,7 @@ namespace ScopeNine.State
             base.UpdateState();
             Texture2D.UpdateLoading();
             GameHost.Update();
+            SUI.Update();
         }
 
         public override void DrawState()
@@ -70,7 +77,7 @@ namespace ScopeNine.State
             base.DrawState();
 
             GameHost.Render();
-
+            SUI.Render();
         }
 
     }
