@@ -51,6 +51,7 @@ namespace Vivid.Input
 
 
         }
+
         public static bool DUp()
         {
             return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).DPad.Up == XInputDotNetPure.ButtonState.Pressed;
@@ -59,6 +60,26 @@ namespace Vivid.Input
         {
             return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).DPad.Down == XInputDotNetPure.ButtonState.Pressed;
         }
+        public static bool DLeft()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).DPad.Left == XInputDotNetPure.ButtonState.Pressed;
+        }
+        public static bool DRight()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).DPad.Right == XInputDotNetPure.ButtonState.Pressed;
+        }
+
+        public static float rightX()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.X;
+        }
+
+        public static float rightY()
+        {
+            return XInputDotNetPure.GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.Y;
+
+        }
+
         public static float LeftX()
         {
 

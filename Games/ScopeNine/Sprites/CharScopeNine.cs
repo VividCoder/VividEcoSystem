@@ -119,15 +119,17 @@ namespace ScopeNine.Sprites
 
         }
 
+        bool changedSlot = false;
         int lmz = 0;
         int lastJump = 0;
         public float aimAngle = 0;
         public GraphLight aimLight = null;
+        bool usePad = true;
         public GraphSprite AimSprite = null;
         public override void Update()
         {
 
-            if(AimSprite == null)
+            if (AimSprite == null)
             {
                 AimSprite = new GraphSprite(PulseAimImg, null);
                 AimSprite.X = X;
@@ -139,44 +141,119 @@ namespace ScopeNine.Sprites
 
                 Graph.Add(aimLight);
 
-                
+
 
 
             }
             else
             {
 
-                float rx = RealX;
-                float ry = RealY;
+                if (usePad)
+                {
 
-                float mx = Vivid.Input.Input.MX;
-                float my = Vivid.Input.Input.MY;
+                    float xi = XIn.rightX();
+                    float yi = XIn.rightY();
 
-                float ang = (float)Math.Atan2(my - ry, mx - rx);
+                    float dis = (float)Math.Sqrt((xi * xi) + (yi * yi));
 
-                aimAngle = ang;
+                    if (dis > 0.5)
+                    {
 
-                AimSprite.Rot = OpenTK.MathHelper.RadiansToDegrees( aimAngle);
+                        float ang =(float) Math.Atan2(-yi, xi);
 
-                //Console.WriteLine("Rot:" + AimSprite.Rot);
-
-                float xo = (float)Math.Cos(aimAngle);
-                float yo = (float)Math.Sin(aimAngle);
-
-                xo = xo * 64;
-                yo = yo * 64;
+                        aimAngle = OpenTK.MathHelper.RadiansToDegrees(ang);
 
 
-                AimSprite.X = X+xo;
-                AimSprite.Y = Y+yo;
-                aimLight.X = AimSprite.X;
-                aimLight.Y = AimSprite.Y;
+                        //aimAngle = ang;
+
+
+                        AimSprite.Rot = aimAngle;
+
+                        float xo = (float)Math.Cos(ang);
+                        float yo = (float)Math.Sin(ang);
+
+                        xo = xo * 64;
+                        yo = yo * 64;
+
+
+                        AimSprite.X = X + xo;
+                        AimSprite.Y = Y + yo;
+                        aimLight.X = AimSprite.X;
+                        aimLight.Y = AimSprite.Y;
+                    }
+                
+                }
+                else
+                {
+                    float rx = RealX;
+                    float ry = RealY;
+
+                    float mx = Vivid.Input.Input.MX;
+                    float my = Vivid.Input.Input.MY;
+
+                    float ang = (float)Math.Atan2(my - ry, mx - rx);
+
+                    aimAngle = ang;
+
+                    AimSprite.Rot = OpenTK.MathHelper.RadiansToDegrees(aimAngle);
+
+                    //Console.WriteLine("Rot:" + AimSprite.Rot);
+
+                    float xo = (float)Math.Cos(aimAngle);
+                    float yo = (float)Math.Sin(aimAngle);
+
+                    xo = xo * 64;
+                    yo = yo * 64;
+
+
+                    AimSprite.X = X + xo;
+                    AimSprite.Y = Y + yo;
+                    aimLight.X = AimSprite.X;
+                    aimLight.Y = AimSprite.Y;
+                }
             }
 
 
-            if (Vivid.Input.Input.MB[1])
+            if (!changedSlot)
             {
-                CurSlot++;
+                if (XIn.DLeft())
+                {
+                    CurSlot--;
+                    if(CurSlot<0)
+                    {
+                        if (Slots[2] == null)
+                        {
+                            CurSlot = 1;
+                        }
+                        else
+                        {
+                            CurSlot = 2;
+                        }
+                    }
+                    changedSlot = true;
+                    RebuildWeaponHud();
+                }
+                if (XIn.DRight())
+                {
+                    CurSlot++;
+                    if(CurSlot == 3)
+                    {
+                        CurSlot = 0;
+                    }
+                    if (Slots[CurSlot] == null)
+                    {
+                        CurSlot = 0;
+                    }
+                    changedSlot = true;
+                    RebuildWeaponHud();
+                }
+            }
+            else
+            {
+                if(XIn.DLeft()==false && XIn.DRight() == false)
+                {
+                    changedSlot = false;
+                }
             }
 
             switch (State)
