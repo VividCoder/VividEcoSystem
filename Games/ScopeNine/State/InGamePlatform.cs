@@ -19,6 +19,7 @@ namespace ScopeNine.State
     {
 
        ScopeNine.Hosts.ScopeNinePlatformer  GameHost;
+        public Graph2DRain RainFX = null;
 
         public InGamePlatform()
         {
@@ -54,6 +55,10 @@ namespace ScopeNine.State
             GameHost.Graph.Z = 1.6f;
             GameHost.Init();
 
+            RainFX = new Graph2DRain();
+            RainFX.Graph = GameHost.Graph;
+            RainFX.Init(1280);
+
 
 
         }
@@ -70,6 +75,7 @@ namespace ScopeNine.State
             Texture2D.UpdateLoading();
             GameHost.Update();
             SUI.Update();
+            RainFX.Update();
         }
 
         public override void DrawState()

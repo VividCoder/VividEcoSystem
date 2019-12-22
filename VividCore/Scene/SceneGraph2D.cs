@@ -272,13 +272,17 @@ namespace Vivid.Scene
             {
                 if (!(node is Game.GameSprite))
                 {
-
+                    StoreCam();
+                    X = 0;
+                    Y = 0;
+                    Z = 1;
+                    Rot = 0;
                     node.SyncCoords();
                     map.AddLine(node.DrawP[0].X, node.DrawP[0].Y, node.DrawP[1].X, node.DrawP[1].Y, 0, -1);
                     map.AddLine(node.DrawP[1].X, node.DrawP[1].Y, node.DrawP[2].X, node.DrawP[2].Y, 1, 0);
                     map.AddLine(node.DrawP[2].X, node.DrawP[2].Y, node.DrawP[3].X, node.DrawP[3].Y, 0, 1);
                     map.AddLine(node.DrawP[3].X, node.DrawP[3].Y, node.DrawP[0].X, node.DrawP[0].Y, -1, 0);
-
+                    RestoreCam();
                 }
                // RestoreCam();
             }

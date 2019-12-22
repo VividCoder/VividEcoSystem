@@ -381,14 +381,19 @@ namespace ScopeNine.Sprites
             var cm = Graph.CreateCollisionMap(0.05f);
 
 
+            Graph.StoreCam();
+            Graph.X = 0;
+            Graph.Y = 0;
+            Graph.Z = 1;
+            Graph.Rot = 0;
             float cx = this.RealX;
             float cy = this.RealY;
-
+            Graph.RestoreCam();
 
 
             if (Environment.TickCount > (lastJump + 500))
             {
-                var hit = cm.RayCast(cx, cy, cx, cy + 60 * Graph.Z);
+                var hit = cm.RayCast(cx, cy, cx, cy + 32);
 
                 if (hit == null)
                 {
@@ -398,19 +403,27 @@ namespace ScopeNine.Sprites
                 }
                 else
                 {
-                    float dis = hit.HitY - 50 * Graph.Z;
+
+                    //Y = 
+                    //Y = hit.HitY - 40;
+                    Yi = 0;
+                    onGround = true;
+
+                    /*
+                    Environment.Exit(1);
+                    float dis = hit.HitY - 32;
 
                     dis = Math.Abs((dis - Y));
 
 
-                    if (dis < 32*Graph.Z)
+                    if (dis < 32)
                     {
 
                         Yi = 0;
-                        //Y = cy; // hit.HitY - 32 * Graph.Z;
+                        Y = cy; // hit.HitY - 32 * Graph.Z;
                         onGround = true;
                     }
-
+                    */
                 }
             }
 

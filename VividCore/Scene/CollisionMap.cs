@@ -174,7 +174,7 @@ namespace Vivid.Scene
             // equations of the form x = c (two vertical lines)
             if (Math.Abs(x1 - x2) < tolerance && Math.Abs(x3 - x4) < tolerance && Math.Abs(x1 - x3) < tolerance)
             {
-                return default(Point);
+                 return default(Point);
                 //throw new Exception("Both lines overlap vertically, ambiguous intersection points.");
             }
 

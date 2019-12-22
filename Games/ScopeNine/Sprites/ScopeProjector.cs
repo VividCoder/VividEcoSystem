@@ -49,15 +49,30 @@ namespace ScopeNine.Sprites
 
 
         }
+        float sx=-1, sy;
         public override void Update()
         {
             
             base.Update();
+            if (sx == -1)
+            {
+                sx = X;
+                sy = Y;
+            }
             X = X + XM * 13;
             Y = Y + YM * 13;
             Light1.X = X;
             Light1.Y = Y;
+            float xd = X - sx;
+            float yd = Y - sy;
+            float dis = (float)Math.Sqrt(xd * xd + yd * yd);
+            if (dis > 1500)
+            {
+                Graph.Root.Nodes.Remove(this);
+                Graph.Lights.Remove(Light1);
+                Console.WriteLine("Removed");
 
+            }
         }
     }
     public class LongShotProjector : ScopeProjector
