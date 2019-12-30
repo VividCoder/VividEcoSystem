@@ -22,7 +22,7 @@ namespace MapEditor.States
 {
     public class EditMapState : VividState
     {
-        public string ContentPath = "C:\\Projects\\GameInfo\\";
+        public string ContentPath = "C:\\Projects\\VividEcoSystem\\Games\\ScopeNine\\bin\\x64\\Debug\\Corona\\";
 
         public static void SaveEditState()
         {

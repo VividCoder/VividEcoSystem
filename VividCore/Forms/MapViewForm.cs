@@ -226,7 +226,11 @@ namespace Vivid.Forms
                     }
                      
                     Graph.Draw(shadows);
-                    
+
+                    if (Graph.Root.Nodes[0].DrawP != null)
+                    {
+                        Console.WriteLine("X:" + Graph.Root.Nodes[0].DrawP[0].X + " Y:" + Graph.Root.Nodes[0].DrawP[0].Y);
+                    }
                     foreach(var l in Graph.Lights)
                     {
 

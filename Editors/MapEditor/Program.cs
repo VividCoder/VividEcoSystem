@@ -13,7 +13,7 @@ namespace MapEditor
 
             //Console.WriteLine("Editing Project:" + args[0]);
 
-            string path = "C:\\Vivid\\Corona\\";
+            string path = "C:\\Projects\\VividEcoSystem\\Games\\ScopeNine\\bin\\x64\\Debug\\Corona\\";
             GameGlobal.ContentPath = path;// args[0];
             GameGlobal.ProjectPath = path;// args[0];
             MapEditorApp.InitMapEditor();

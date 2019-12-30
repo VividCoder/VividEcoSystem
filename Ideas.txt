@@ -57,4 +57,7 @@ the stability. This may lead to something else. Includes a read out of a a.i/rob
 
   1. Close Range POWER shot. To disable near-by electronics.
  
-   2. Long Range weak shot. To disable and change further away objects.
+  2. Long Range weak shot. To disable and change further away objects.
+
+
+ - 2D Lens flares on lights.
